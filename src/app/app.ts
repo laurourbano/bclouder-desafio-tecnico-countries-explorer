@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule, RouterOutlet } from '@angular/router';
 
@@ -9,7 +10,8 @@ import { RouterModule, RouterOutlet } from '@angular/router';
     RouterOutlet,
     MatToolbarModule,
     MatButtonModule,
-    RouterModule
+    RouterModule,
+    MatCardModule
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss'
