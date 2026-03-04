@@ -7,7 +7,7 @@
   Apagar lista
 </button>
 <div class="wrapper">
-  @for(country of countries; track country.name.official) {
+  @for(country of countries(); track country.name.official) {
       <div>
         <img src="{{country.flags.png}}" alt="{{country.name.common}}">
           <span>

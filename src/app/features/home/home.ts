@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CountryService } from '../../core/services/country-service';
 import { Country } from '../../core/models/country.model';
 
@@ -12,21 +12,20 @@ export class Home {
 
   private service = inject(CountryService);
 
-   countries: Country[] = [];
+   countries = signal<Country[]>([]);
 
    load(){
-    this.service.getAll().subscribe({
-      next: (countries) => {
-        this.countries = countries;
+    this.service.getAll().subscribe(data => {
+        this.countries.set(data);
       },
-      error: (error) => {
-        console.error('Erro ao carregar países:', error);
+      error => {
+        alert('Erro ao carregar os países: ' + error.message);
       }
-    });
+    );
    }
 
    clear(){
-    this.countries = [];
+    this.countries.set([]);
     }
 
 
