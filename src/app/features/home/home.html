@@ -1,21 +1,75 @@
-<h2>Testando a Api</h2>
 
-<button (click)="load()">
-    Carregar países
-</button>
-<button (click)="clear()">
-  Apagar lista
-</button>
-<div class="wrapper">
-  @for(country of countries(); track country.name.official) {
-      <div>
-        <img src="{{country.flags.png}}" alt="{{country.name.common}}">
-          <span>
-            {{ country.name.common }}
-          </span>
-      </div>
-  }
+
+<div class="filters">
+
+  <h2>Lista de Países</h2>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Buscar</mat-label>
+    <input matInput [formControl]="searchControl">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Região</mat-label>
+    <mat-select [formControl]="regionControl">
+      <mat-option value="">Todas</mat-option>
+      <mat-option value="Africa">África</mat-option>
+      <mat-option value="Americas">Américas</mat-option>
+      <mat-option value="Asia">Ásia</mat-option>
+      <mat-option value="Europe">Europa</mat-option>
+      <mat-option value="Oceania">Oceania</mat-option>
+    </mat-select>
+  </mat-form-field>
 
 </div>
 
+@if (countriesResource.isLoading()) {
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+}
 
+@if (countriesResource.value(); as countries) {
+
+  <table mat-table [dataSource]="countries">
+
+    <ng-container matColumnDef="flag">
+      <th mat-header-cell *matHeaderCellDef>Bandeira</th>
+      <td mat-cell *matCellDef="let c">
+        <img [src]="c.flags.svg" width="40">
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>País</th>
+      <td mat-cell *matCellDef="let c">
+        {{ c.name.common }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="population">
+      <th mat-header-cell *matHeaderCellDef>População</th>
+      <td mat-cell *matCellDef="let c">
+        {{ c.population }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="region">
+      <th mat-header-cell *matHeaderCellDef>Região</th>
+      <td mat-cell *matCellDef="let c">
+        {{ c.region }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let c">
+        <button mat-icon-button (click)="goToDetail(c)">
+          <mat-icon>search</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+}

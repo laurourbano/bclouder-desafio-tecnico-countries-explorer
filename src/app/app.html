@@ -1,5 +1,8 @@
-<h1>
-  {{ title() }}
-</h1>
+<mat-toolbar color="primary">
+    <span>{{ title() }}</span>
+    <mat-divider></mat-divider>
+    <button mat-button [routerLink]="'/'">Lista de Países</button>
+</mat-toolbar>
+
 <router-outlet></router-outlet>
 

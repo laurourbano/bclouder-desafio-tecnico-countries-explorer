@@ -1,32 +1,63 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, resource } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { CountryService } from '../../core/services/country-service';
-import { Country } from '../../core/models/country.model';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { debounceTime, startWith } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
+import { MATERIAL_MODULES } from '../../shared/material/material.config';
+import { RouterModule, Router } from "@angular/router";
 
 @Component({
+  standalone: true,
   selector: 'app-home',
-  imports: [],
+  imports: [
+    ReactiveFormsModule,
+    MATERIAL_MODULES,
+    RouterModule
+],
   templateUrl: './home.html',
-  styleUrl: './home.scss',
+  styleUrl: './home.scss'
 })
 export class Home {
+ private service = inject(CountryService);
+  private router = inject(Router);
 
-  private service = inject(CountryService);
+  searchControl = new FormControl('');
+  regionControl = new FormControl('');
 
-   countries = signal<Country[]>([]);
+  searchSignal = toSignal(
+    this.searchControl.valueChanges.pipe(
+      debounceTime(400),
+      startWith('')
+    ),
+    { initialValue: '' }
+  );
 
-   load(){
-    this.service.getAll().subscribe(data => {
-        this.countries.set(data);
-      },
-      error => {
-        alert('Erro ao carregar os países: ' + error.message);
+  regionSignal = toSignal(
+    this.regionControl.valueChanges.pipe(startWith('')),
+    { initialValue: '' }
+  );
+
+  countriesResource = resource({
+    loader: async () => {
+      const search = this.searchSignal();
+      const region = this.regionSignal();
+
+      if (search) {
+        return firstValueFrom(this.service.search(search));
       }
-    );
-   }
 
-   clear(){
-    this.countries.set([]);
+      if (region) {
+        return firstValueFrom(this.service.byRegion(region));
+      }
+
+      return firstValueFrom(this.service.getAll());
     }
+  });
 
+  displayedColumns = ['flag', 'name', 'population', 'region', 'actions'];
 
+  goToDetail(country: any) {
+    this.router.navigate(['/countries', country.cca3]);
+  }
 }

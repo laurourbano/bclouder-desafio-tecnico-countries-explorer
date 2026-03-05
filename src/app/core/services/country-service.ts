@@ -11,23 +11,39 @@ export class CountryService {
 
   private readonly apiUrl = environment.apiUrl;
 
+  private readonly fields = 'name,cca3,capital,population,region,subregion,flags,borders,area';
+
   private countriesCache = signal<Country[] | null>(null);
 
-  private readonly fields = 'name,cca3,capital,population,region,subregion,flags,borders';
-
-  constructor(
-    private http: HttpClient
-  ) {}
+  constructor(    private http: HttpClient  ) {}
 
   getAll(): Observable<Country[]> {
     if (this.countriesCache()) {
       return of(this.countriesCache()!);
     }
 
-    return this.http.get<Country[]>(`${this.apiUrl}/all?fields=${this.fields}`)
-    .pipe(
-      tap(countries => this.countriesCache.set(countries))
+    return this.http
+      .get<Country[]>(`${this.apiUrl}/all?fields=${this.fields}`)
+      .pipe(tap(data => this.countriesCache.set(data)));
+  }
+
+  search(name: string) {
+    return this.http.get<Country[]>(
+      `${this.apiUrl}/name/${name}?fields=${this.fields}`
     );
   }
-  
+
+  byRegion(region: string) {
+    return this.http.get<Country[]>(
+      `${this.apiUrl}/region/${region}?fields=${this.fields}`
+    );
+  }
+
+byCode(code: string) {
+  return this.http.get<any>(
+    `${this.apiUrl}/alpha/${code}?fields=${this.fields}`
+  );
+}
+
+
 }

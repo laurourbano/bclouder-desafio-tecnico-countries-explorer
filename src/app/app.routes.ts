@@ -4,6 +4,11 @@ export const routes: Routes = [
 
 {
   path:'',
-  loadComponent: () => import('./features/home/home').then(m => m.Home)
+  loadComponent: () => import('./features/home/home').then(m => m.Home
+  )
+},
+{
+  path: 'countries/:code',
+  loadComponent: () => import('./features/detail/detail').then(m => m.Detail)
 }
 ];

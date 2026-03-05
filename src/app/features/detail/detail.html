@@ -1,0 +1,93 @@
+<div style="margin-bottom:20px;">
+  <button mat-stroked-button (click)="goBack()">
+    ← Voltar
+  </button>
+</div>
+
+@if (loading()) {
+
+  <div style="display:flex; justify-content:center; margin-top:40px;">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
+
+} @else {
+
+  @if (country(); as c) {
+
+    <div style="display:flex; gap:40px; align-items:flex-start; flex-wrap:wrap;">
+
+      <!-- Bandeira -->
+      <div>
+        <img
+          [src]="c.flags?.svg"
+          [alt]="c.name?.common"
+          width="300"
+          style="border-radius:8px;"
+        />
+      </div>
+
+      <!-- Informações -->
+      <div style="max-width:600px;">
+
+        <h2>{{ c.name?.common }}</h2>
+
+        <p><strong>Nome Oficial:</strong> {{ c.name?.official }}</p>
+        <p><strong>Capital:</strong> {{ c.capital?.[0] || '—' }}</p>
+        <p><strong>População:</strong> {{ c.population  }}</p>
+        <p><strong>Região:</strong> {{ c.region }}</p>
+        <p><strong>Sub-região:</strong> {{ c.subregion }}</p>
+        <p><strong>Área:</strong> {{ c.area  }} km²</p>
+
+        <!-- Idiomas -->
+        <p>
+          <strong>Idiomas:</strong>
+          @if (c.languages; as languages) {
+            @for (lang of languages; track lang.key) {
+              <span>{{ lang.value }} </span>
+            }
+          }
+        </p>
+
+        <!-- Moedas -->
+        <p>
+          <strong>Moedas:</strong>
+          @if (c.currencies; as currencies) {
+            @for (currency of currencies ; track currency.key) {
+              <span>{{ currency.value.name }} ({{ currency.value.symbol }}) </span>
+            }
+          }
+        </p>
+
+        <!-- Fronteiras -->
+        <div style="margin-top:20px;">
+          <h3>Países Fronteiriços</h3>
+
+          @if (c.borders?.length) {
+
+            <mat-chip-set>
+              @for (border of c.borders; track border) {
+                <mat-chip
+                  (click)="goToBorder(border)"
+                  style="cursor:pointer;">
+                  {{ border }}
+                </mat-chip>
+              }
+            </mat-chip-set>
+
+          } @else {
+            <p>Não possui fronteiras</p>
+          }
+
+        </div>
+
+      </div>
+
+    </div>
+
+  } @else {
+
+    <p>País não encontrado</p>
+
+  }
+
+}
