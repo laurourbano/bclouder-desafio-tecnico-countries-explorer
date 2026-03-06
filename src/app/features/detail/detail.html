@@ -19,12 +19,12 @@
   <div style="display:flex; gap:40px; align-items:flex-start; flex-wrap:wrap;">
 
     <!-- Bandeira -->
-    <div>
+    <div class="country-detail">
       <img [src]="c.flags?.svg" [alt]="c.name?.common" width="300" style="border-radius:8px;" />
     </div>
 
     <!-- Informações -->
-    <div style="max-width:600px;">
+    <div style="max-width:600px;" class="country-detail">
 
       <h2>{{ c.name?.common }}</h2>
 
