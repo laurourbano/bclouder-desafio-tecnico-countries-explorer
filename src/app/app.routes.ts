@@ -8,7 +8,7 @@ export const routes: Routes = [
   )
 },
 {
-  path: 'countries/:code',
+  path: 'countries/:cca3',
   loadComponent: () => import('./features/detail/detail').then(m => m.Detail)
 }
 ];

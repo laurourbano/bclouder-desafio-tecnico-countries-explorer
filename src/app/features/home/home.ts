@@ -1,11 +1,16 @@
-import { Component, inject, resource } from '@angular/core';
+import { Component, computed, inject, signal, ViewChild } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { CountryService } from '../../core/services/country-service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime, startWith } from 'rxjs';
-import { firstValueFrom } from 'rxjs';
+import { debounceTime, distinctUntilChanged, startWith, Subject, takeUntil } from 'rxjs';
 import { MATERIAL_MODULES } from '../../shared/material/material.config';
 import { RouterModule, Router } from "@angular/router";
+import { DecimalPipe } from '@angular/common';
+import { MatTableDataSource } from '@angular/material/table';
+import { Country } from '../../core/models/country.model';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   standalone: true,
@@ -13,51 +18,124 @@ import { RouterModule, Router } from "@angular/router";
   imports: [
     ReactiveFormsModule,
     MATERIAL_MODULES,
-    RouterModule
-],
+    RouterModule,
+    DecimalPipe
+  ],
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })
 export class Home {
- private service = inject(CountryService);
+
+  private service = inject(CountryService);
   private router = inject(Router);
+  private toastr = inject(ToastrService);
+
+  displayedColumns = ['flag', 'name', 'capital', 'region', 'population', 'actions'];
+
+  dataSource = new MatTableDataSource<Country>();
+
+  loading = signal(true);
+  totalCountries = signal(0);
+  filteredCount = computed(() => this.dataSource.filteredData.length);
 
   searchControl = new FormControl('');
   regionControl = new FormControl('');
 
-  searchSignal = toSignal(
+  regions = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  private destroy$ = new Subject<void>();
+
+
+  ngOnInit(): void {
+
+    this.service.getAll()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: countries => {
+
+          this.dataSource.data = countries;
+
+          this.totalCountries.set(countries.length);
+          this.loading.set(false);
+
+          setTimeout(() => {
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+          });
+
+          this.toastr.success(`${countries.length} países carregados`, 'Pronto');
+        },
+
+        error: () => {
+          this.loading.set(false);
+          this.toastr.error('Não foi possível carregar os países', 'Erro');
+        }
+      });
+
+
     this.searchControl.valueChanges.pipe(
-      debounceTime(400),
-      startWith('')
-    ),
-    { initialValue: '' }
-  );
+      debounceTime(300),
+      distinctUntilChanged(),
+      takeUntil(this.destroy$)
+    ).subscribe(val => this.applyFilter(val ?? ''));
 
-  regionSignal = toSignal(
-    this.regionControl.valueChanges.pipe(startWith('')),
-    { initialValue: '' }
-  );
 
-  countriesResource = resource({
-    loader: async () => {
-      const search = this.searchSignal();
-      const region = this.regionSignal();
+    this.regionControl.valueChanges.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(() => this.applyFilter(this.searchControl.value ?? ''));
 
-      if (search) {
-        return firstValueFrom(this.service.search(search));
-      }
 
-      if (region) {
-        return firstValueFrom(this.service.byRegion(region));
-      }
+    this.dataSource.filterPredicate = (country: Country, filter: string) => {
 
-      return firstValueFrom(this.service.getAll());
-    }
-  });
+      const [text, region] = filter.split('|');
 
-  displayedColumns = ['flag', 'name', 'population', 'region', 'actions'];
+      const matchText =
+        !text || country.name.common.toLowerCase().includes(text);
 
-  goToDetail(country: any) {
-    this.router.navigate(['/countries', country.cca3]);
+      const matchRegion =
+        !region || country.region === region;
+
+      return matchText && matchRegion;
+    };
   }
+
+
+  applyFilter(text: string): void {
+
+    const region = this.regionControl.value ?? '';
+
+    this.dataSource.filter = `${text.trim().toLowerCase()}|${region}`;
+
+    this.dataSource.paginator?.firstPage();
+  }
+
+
+  clearFilters(): void {
+
+    this.searchControl.setValue('');
+    this.regionControl.setValue('');
+  }
+
+openDetail(country: Country): void {
+
+  const code = country.cca3;
+
+  if (!code) {
+    this.toastr.error('Código do país inválido');
+    return;
+  }
+
+  this.router.navigate(['/countries', code]);
+
+}
+
+  ngOnDestroy(): void {
+
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
 }

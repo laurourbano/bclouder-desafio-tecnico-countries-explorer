@@ -13,5 +13,7 @@ export interface Country {
     };
     borders?: string[];
     area: number;
+    cca3: string;
+    code: string;
 }
 

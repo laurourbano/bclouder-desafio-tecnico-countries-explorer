@@ -27,9 +27,9 @@ export class Detail {
     this.route.paramMap
       .pipe(
         switchMap(params => {
-          const code = params.get('code');
+          const cca3 = params.get('cca3');
           this.loading.set(true);
-          return this.service.byCode(code!);
+          return this.service.byCca3(cca3!);
         })
       )
       .subscribe(response => {
@@ -45,8 +45,8 @@ export class Detail {
       });
   }
 
-  goToBorder(code: string) {
-    this.router.navigate(['/countries', code]);
+  goToBorder(cca3: string) {
+    this.router.navigate(['/countries', cca3]);
   }
 
   goBack(){

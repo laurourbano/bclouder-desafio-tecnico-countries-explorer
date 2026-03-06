@@ -15,7 +15,7 @@ export class CountryService {
 
   private countriesCache = signal<Country[] | null>(null);
 
-  constructor(    private http: HttpClient  ) {}
+  constructor(private http: HttpClient) { }
 
   getAll(): Observable<Country[]> {
     if (this.countriesCache()) {
@@ -39,11 +39,11 @@ export class CountryService {
     );
   }
 
-byCode(code: string) {
-  return this.http.get<any>(
-    `${this.apiUrl}/alpha/${code}?fields=${this.fields}`
-  );
-}
+  byCca3(cca3: string) {
+    return this.http.get<any>(
+      `${this.apiUrl}/alpha/${cca3}?fields=${this.fields}`
+    );
+  }
 
 
 }
