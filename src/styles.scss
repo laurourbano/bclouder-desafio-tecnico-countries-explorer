@@ -29,6 +29,8 @@ body {
   padding: 32px 24px;
 }
 
+
+
 @media (max-width: 768px) {
 
   .controls {
@@ -44,6 +46,10 @@ body {
   mat-toolbar {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .mobile {
+    display: block;
   }
 
 }
