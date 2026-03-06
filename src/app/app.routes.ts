@@ -10,5 +10,10 @@ export const routes: Routes = [
 {
   path: 'countries/:cca3',
   loadComponent: () => import('./features/detail/detail').then(m => m.Detail)
+},
+{
+  path: '**',
+  redirectTo: '',
+  pathMatch: 'full'
 }
 ];
