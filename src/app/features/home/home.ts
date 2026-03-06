@@ -25,11 +25,27 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class Home {
 
+  desktopColumns = [
+    'flag',
+    'name',
+    'capital',
+    'region',
+    'population',
+    'actions'
+  ];
+
+  mobileColumns = [
+    'flag',
+    'name',
+    'region',
+  ];
+
+  displayedColumns = this.desktopColumns;
+
   private service = inject(CountryService);
   private router = inject(Router);
   private toastr = inject(ToastrService);
 
-  displayedColumns = ['flag', 'name', 'capital', 'region', 'population', 'actions'];
 
   dataSource = new MatTableDataSource<Country>();
 
@@ -99,6 +115,18 @@ export class Home {
 
       return matchText && matchRegion;
     };
+
+    const checkScreen = () => {
+      if (window.innerWidth < 768) {
+        this.displayedColumns = this.mobileColumns;
+      } else {
+        this.displayedColumns = this.desktopColumns;
+      }
+    };
+
+    checkScreen();
+
+    window.addEventListener('resize', checkScreen);
   }
 
 
@@ -118,18 +146,18 @@ export class Home {
     this.regionControl.setValue('');
   }
 
-openDetail(country: Country): void {
+  openDetail(country: Country): void {
 
-  const code = country.cca3;
+    const code = country.cca3;
 
-  if (!code) {
-    this.toastr.error('Código do país inválido');
-    return;
+    if (!code) {
+      this.toastr.error('Código do país inválido');
+      return;
+    }
+
+    this.router.navigate(['/countries', code]);
+
   }
-
-  this.router.navigate(['/countries', code]);
-
-}
 
   ngOnDestroy(): void {
 

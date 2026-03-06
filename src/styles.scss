@@ -23,10 +23,21 @@ body {
   height: 100%;
 }
 
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
 @media (max-width: 768px) {
 
+  .controls {
+    flex-direction: row;
+  }
+
   .search-field,
-  .region-field {
+  .region-field,
+  .clear-btn {
     width: 100%;
   }
 
@@ -34,19 +45,5 @@ body {
     flex-direction: column;
     align-items: flex-start;
   }
-
-  .country-detail {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .country-detail img {
-    max-width: 100%;
-  }
-
-    .mobile-hide {
-    display: none;
-  }
-
 
 }
