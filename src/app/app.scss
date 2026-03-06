@@ -1,9 +1,14 @@
 mat-toolbar {
   display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+mat-toolbar span {
+  flex: 1;
 }
 
 mat-card{
-  width: 1268px;
   margin: 20px auto;
   padding: 20px;
 }

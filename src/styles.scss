@@ -23,3 +23,27 @@ body {
   height: 100%;
 }
 
+@media (max-width: 768px) {
+
+
+
+  .search-field,
+  .region-field {
+    width: 100%;
+  }
+
+  mat-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .country-detail {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .country-detail img {
+    max-width: 100%;
+  }
+
+}
