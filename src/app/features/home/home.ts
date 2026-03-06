@@ -1,5 +1,4 @@
 import { Component, computed, inject, signal, ViewChild } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { CountryService } from '../../core/services/country-service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, startWith, Subject, takeUntil } from 'rxjs';

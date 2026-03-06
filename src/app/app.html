@@ -1,8 +1,9 @@
 <mat-toolbar color="primary">
     <span>{{ title() }}</span>
     <mat-divider></mat-divider>
-    <button mat-button [routerLink]="'/'">Lista de Países</button>
+    <button mat-raised-button color="primary" [routerLink]="'/'">Lista de Países</button>
 </mat-toolbar>
 
-<router-outlet></router-outlet>
-
+<mat-card>
+  <router-outlet></router-outlet>
+</mat-card>
