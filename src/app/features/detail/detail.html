@@ -39,9 +39,9 @@
       <p>
         <strong>Idiomas:</strong>
         @if (c.languages; as languages) {
-        @for (lang of languages; track lang.key) {
-        <span>{{ lang.value }} </span>
-        }
+@for (lang of languages | keyvalue; track lang.key) {
+  <span>{{ lang.value }} </span>
+}
         }
       </p>
 
@@ -49,9 +49,9 @@
       <p>
         <strong>Moedas:</strong>
         @if (c.currencies; as currencies) {
-        @for (currency of currencies ; track currency.key) {
-        <span>{{ currency.value.name }} ({{ currency.value.symbol }}) </span>
-        }
+@for (currency of currencies | keyvalue; track currency.key) {
+  <span>{{ currency.value.name }} ({{ currency.value.symbol }}) </span>
+}
         }
       </p>
 

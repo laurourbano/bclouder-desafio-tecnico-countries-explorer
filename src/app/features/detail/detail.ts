@@ -3,13 +3,15 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CountryService } from '../../core/services/country-service';
 import { MATERIAL_MODULES } from '../../shared/material/material.config';
 import { switchMap } from 'rxjs/operators';
+import { KeyValuePipe } from '@angular/common';
 
 
 @Component({
   selector: 'app-detail',
   imports: [
     RouterModule,
-    MATERIAL_MODULES
+    MATERIAL_MODULES,
+    KeyValuePipe
   ],
   templateUrl: './detail.html',
   styleUrl: './detail.scss',
@@ -38,7 +40,6 @@ export class Detail {
           ? response[0]
           : response;
 
-        // 🔥 força nova referência
         this.country.set({ ...result });
 
         this.loading.set(false);
