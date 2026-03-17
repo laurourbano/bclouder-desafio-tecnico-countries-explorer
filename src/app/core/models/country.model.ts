@@ -32,8 +32,16 @@ export interface Country {
     }
   >;
 
-  area: string;
+  area: number;
 
   code: string;
+
+translations?: Record<
+  string,
+  {
+    official: string;
+    common: string;
+  }
+>;
 
 }

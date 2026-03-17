@@ -1,9 +1,9 @@
 <div class="page-container">
 
   <div style="margin-bottom:20px;">
-    <button mat-stroked-button (click)="goBack()">
-      ← Voltar
-    </button>
+<button mat-stroked-button (click)="goBack()">
+  ← {{ ui().back }}
+</button>
   </div>
 
   @if (loading()) {
@@ -18,26 +18,50 @@
 
   <div style="display:flex; gap:40px; align-items:flex-start; flex-wrap:wrap;">
 
+  <mat-form-field appearance="outline">
+
+<mat-label>{{ ui().language }}</mat-label>
+
+    <mat-select
+      [value]="langService.language()"
+      (selectionChange)="langService.setLanguage($event.value)"
+    >
+
+      @for (lang of languages; track lang.code) {
+        <mat-option [value]="lang.code">
+          {{ lang.label }}
+        </mat-option>
+      }
+
+    </mat-select>
+
+  </mat-form-field>
+
     <!-- Bandeira -->
     <div class="country-detail">
-      <img [src]="c.flags?.svg" [alt]="c.name?.common" width="300" style="border-radius:8px;" />
+      <img [src]="c.flags.svg" [alt]="c.name.common" width="300" style="border-radius:8px;" />
     </div>
 
     <!-- Informações -->
     <div style="max-width:600px;" class="country-detail">
 
-      <h2>{{ c.name?.common }}</h2>
+<h2>{{ translatedName() }}</h2>
 
-      <p><strong>Nome Oficial:</strong> {{ c.name?.official }}</p>
-      <p><strong>Capital:</strong> {{ c.capital?.[0] || '—' }}</p>
-      <p><strong>População:</strong> {{ c.population }}</p>
-      <p><strong>Região:</strong> {{ c.region }}</p>
-      <p><strong>Sub-região:</strong> {{ c.subregion }}</p>
-      <p><strong>Área:</strong> {{ c.area }} km²</p>
+<p><strong>{{ ui().officialName }}:</strong> {{ translatedOfficialName() }}</p>
+
+<p><strong>{{ ui().capital }}:</strong> {{ c.capital?.[0] || '—' }}</p>
+
+<p><strong>{{ ui().population }}:</strong> {{ c.population }}</p>
+
+<p><strong>{{ ui().region }}:</strong> {{ c.region }}</p>
+
+<p><strong>{{ ui().subregion }}:</strong> {{ c.subregion }}</p>
+
+<p><strong>{{ ui().area }}:</strong> {{ c.area }} km²</p>
 
       <!-- Idiomas -->
       <p>
-        <strong>Idiomas:</strong>
+<strong>{{ ui().languages }}:</strong>
         @if (c.languages; as languages) {
 @for (lang of languages | keyvalue; track lang.key) {
   <span>{{ lang.value }} </span>
@@ -47,7 +71,7 @@
 
       <!-- Moedas -->
       <p>
-        <strong>Moedas:</strong>
+<strong>{{ ui().currencies }}:</strong>
         @if (c.currencies; as currencies) {
 @for (currency of currencies | keyvalue; track currency.key) {
   <span>{{ currency.value.name }} ({{ currency.value.symbol }}) </span>
@@ -57,9 +81,9 @@
 
       <!-- Fronteiras -->
       <div style="margin-top:20px;">
-        <h3>Países Fronteiriços</h3>
+<h3>{{ ui().borders }}</h3>
 
-        @if (c.borders?.length) {
+        @if (c.borders.length) {
 
         <mat-chip-set>
           @for (border of c.borders; track border) {
@@ -70,8 +94,7 @@
         </mat-chip-set>
 
         } @else {
-        <p>Não possui fronteiras</p>
-        }
+<p>{{ ui().noBorders }}</p>        }
 
       </div>
 

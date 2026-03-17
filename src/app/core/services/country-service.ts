@@ -13,7 +13,9 @@ export class CountryService {
   private readonly apiUrl = environment.apiUrl;
 
 private readonly fields =
-'name,cca3,capital,population,region,subregion,flags,borders,languages,currencies';
+'name,cca3,capital,population,region,subregion,flags,borders,languages,currencies,translations';
+
+private readonly fieldsLimited = 'name,cca3,capital,population,region,subregion,flags,borders,languages,currencies';
 
   private countriesCache = signal<Country[] | null>(null);
 
@@ -26,7 +28,7 @@ getAll(): Observable<Country[]> {
   }
 
   return this.http
-    .get<Country[]>(`${this.apiUrl}/all?fields=${this.fields}`)
+    .get<Country[]>(`${this.apiUrl}/all?fields=${this.fieldsLimited}`)
     .pipe(
       tap(data => {
         this.countriesCache.set(data)
