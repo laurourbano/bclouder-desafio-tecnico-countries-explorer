@@ -1,5 +1,6 @@
 .page-container{
   border: none;
+  height: 85dvh;
 }
 
 
@@ -11,14 +12,20 @@
 }
 
 .country-detail img {
-  max-width: 300px;
+  max-width: 200px;
   width: 100%;
-  max-height: 300px;
+  max-height: 200px;
   height: 100%;
-  box-shadow: -10px 9px 20px 5px rgba(63, 81, 181, 0.8);
+  padding: 6px 12px;
+  box-shadow: -10px 9px 20px 5px rgba(63, 81, 181, 0.09);
 }
 
 .borders {
-  margin: 0 10px;
+  margin: 10px;
   border: none;
+}
+
+::ng-deep .mat-mdc-cell,
+::ng-deep .mat-mdc-header-cell {
+  border-bottom: none !important;
 }

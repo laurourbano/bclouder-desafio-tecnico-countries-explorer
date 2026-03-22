@@ -1,4 +1,4 @@
-<div class="page-container">
+<div class="page-container container">
 
   <div class="page-header">
 
@@ -40,8 +40,8 @@
 
         <mat-option value="">Todas</mat-option>
 
-        @for (r of regions; track r) {
-        <mat-option [value]="r">{{ r }}</mat-option>
+        @for (regiao of regions(); track regiao) {
+        <mat-option [value]="regiao.value">{{regiao.label}}</mat-option>
         }
 
       </mat-select>

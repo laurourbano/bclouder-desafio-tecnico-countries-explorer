@@ -56,7 +56,7 @@ export class Home {
   searchControl = new FormControl('');
   regionControl = new FormControl('');
 
-  regions = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania', 'Antarctic'];
+  regions = signal<{ label: string; value: string }[]>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -72,9 +72,50 @@ export class Home {
         next: countries => {
 
           this.dataSource.data = countries;
-
           this.totalCountries.set(countries.length);
           this.loading.set(false);
+
+          // forçar o sort para corrigir o sort pelo nome
+          this.dataSource.sortingDataAccessor = (item: Country, property: string) => {
+            switch (property) {
+              case 'name':
+                return item.name.common;
+
+              case 'capital':
+                return item.capital?.[0] || '';
+
+              case 'population':
+                return item.population;
+
+              case 'region':
+                return item.region;
+
+              default:
+                return (item as any)[property];
+            }
+          };
+          // Gerar regiões dinamicamente como Rafael sugeriu
+          const uniqueRegions = Array.from(
+            new Set(countries.map(c => c.region).filter(Boolean))
+          );
+
+          const regionMap: Record<string, string> = {
+            Africa: 'África',
+            Americas: 'Américas',
+            Asia: 'Ásia',
+            Europe: 'Europa',
+            Oceania: 'Oceania',
+            Antarctic: 'Antártida'
+          };
+
+          const formatted = uniqueRegions
+            .map(region => ({
+              value: region,
+              label: regionMap[region] || region
+            }))
+            .sort((a, b) => a.label.localeCompare(b.label));
+
+          this.regions.set(formatted);
 
           setTimeout(() => {
             this.dataSource.paginator = this.paginator;
@@ -104,11 +145,21 @@ export class Home {
 
 
     this.dataSource.filterPredicate = (country: Country, filter: string) => {
-
       const [text, region] = filter.split('|');
 
+      const normalize = (value: string) =>
+        value
+          ?.toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '') || '';
+
+      const search = normalize(text);
+
       const matchText =
-        !text || country.name.common.toLowerCase().includes(text);
+        !search ||
+        normalize(country.name.common).includes(search) ||
+        normalize(country.name.official).includes(search) ||
+        normalize(country.capital?.[0] || '').includes(search);
 
       const matchRegion =
         !region || country.region === region;
@@ -126,7 +177,8 @@ export class Home {
 
     checkScreen();
 
-    window.addEventListener('resize', checkScreen);
+    this.resizeHandler();
+    window.addEventListener('resize', this.resizeHandler);
   }
 
 
@@ -163,6 +215,14 @@ export class Home {
 
     this.destroy$.next();
     this.destroy$.complete();
+    window.removeEventListener('resize', this.resizeHandler);
   }
+
+  private resizeHandler = () => {
+    this.displayedColumns =
+      window.innerWidth < 768
+        ? this.mobileColumns
+        : this.desktopColumns;
+  };
 
 }
