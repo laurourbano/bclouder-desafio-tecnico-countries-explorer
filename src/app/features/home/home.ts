@@ -56,7 +56,7 @@ export class Home {
   searchControl = new FormControl('');
   regionControl = new FormControl('');
 
-  regions = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
+  regions = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania', 'Antarctic'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;

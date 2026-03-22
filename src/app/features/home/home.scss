@@ -1,5 +1,3 @@
-
-
 .page-header {
   display: flex;
   align-items: center;
@@ -8,7 +6,6 @@
   h1 {
     font-size: 1.6rem;
     font-weight: 700;
-    margin: 0;
   }
 }
 
@@ -26,7 +23,7 @@
 
 .search-field,
 .region-field {
-  flex: 1 1 250px;
+  flex: 1 1 auto;
 }
 
 .clear-btn {
@@ -38,6 +35,7 @@
   width: 100%;
   border-radius: 12px;
   overflow-x: auto;
+  max-height: 62dvh;
 }
 
 table {
@@ -74,9 +72,9 @@ table {
   white-space: nowrap;
 }
 
+
 .pop-cell {
   font-variant-numeric: tabular-nums;
-  text-align: right;
 }
 
 .table-row {

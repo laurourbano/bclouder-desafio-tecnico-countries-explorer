@@ -1,9 +1,13 @@
-<mat-toolbar color="primary">
-    <span>{{ title() }}</span>
-    <mat-divider></mat-divider>
-    <button mat-raised-button color="primary" [routerLink]="'/'">Lista de Países</button>
-</mat-toolbar>
+<header>
+  <mat-toolbar color="primary">
+      <span>{{ title() }}</span>
+      <mat-divider></mat-divider>
+      <button mat-raised-button color="primary" [routerLink]="'/'">Lista de Países</button>
+  </mat-toolbar>
+</header>
 
-<mat-card>
-  <router-outlet></router-outlet>
-</mat-card>
+<main>
+  <mat-card>
+    <router-outlet></router-outlet>
+  </mat-card>
+</main>

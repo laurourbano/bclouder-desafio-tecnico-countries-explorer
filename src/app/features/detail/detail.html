@@ -1,9 +1,9 @@
 <div class="page-container">
 
   <div style="margin-bottom:20px;">
-<button mat-stroked-button (click)="goBack()">
-  ← {{ ui().back }}
-</button>
+    <button mat-stroked-button (click)="goBack()">
+      ← {{ ui().back }}
+    </button>
   </div>
 
   @if (loading()) {
@@ -14,87 +14,82 @@
 
   } @else {
 
-  @if (country(); as c) {
+  @if (country(); as country) {
 
   <div style="display:flex; gap:40px; align-items:flex-start; flex-wrap:wrap;">
 
-  <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline">
 
-<mat-label>{{ ui().language }}</mat-label>
+      <mat-label>{{ ui().language }}</mat-label>
 
-    <mat-select
-      [value]="langService.language()"
-      (selectionChange)="langService.setLanguage($event.value)"
-    >
+      <mat-select [value]="langService.language()" (selectionChange)="langService.setLanguage($event.value)">
 
-      @for (lang of languages; track lang.code) {
+        @for (lang of languages; track lang.code) {
         <mat-option [value]="lang.code">
           {{ lang.label }}
         </mat-option>
-      }
+        }
 
-    </mat-select>
+      </mat-select>
 
-  </mat-form-field>
+    </mat-form-field>
 
     <!-- Bandeira -->
     <div class="country-detail">
-      <img [src]="c.flags.svg" [alt]="c.name.common" width="300" style="border-radius:8px;" />
+      <img [src]="country.flags.svg" [alt]="country.name.common" width="300" style="border-radius:8px;" />
     </div>
 
     <!-- Informações -->
     <div style="max-width:600px;" class="country-detail">
 
-<h2>{{ translatedName() }}</h2>
+      <h2>{{ translatedName() }}</h2>
 
-<p><strong>{{ ui().officialName }}:</strong> {{ translatedOfficialName() }}</p>
+      <p><strong>{{ ui().officialName }}:</strong> {{ translatedOfficialName() }}</p>
 
-<p><strong>{{ ui().capital }}:</strong> {{ c.capital?.[0] || '—' }}</p>
+      <p><strong>{{ ui().capital }}:</strong> {{ country.capital[0] || '—' }}</p>
 
-<p><strong>{{ ui().population }}:</strong> {{ c.population }}</p>
+      <p><strong>{{ ui().population }}:</strong> {{ country.population }}</p>
 
-<p><strong>{{ ui().region }}:</strong> {{ c.region }}</p>
+      <p><strong>{{ ui().region }}:</strong> {{ country.region }}</p>
 
-<p><strong>{{ ui().subregion }}:</strong> {{ c.subregion }}</p>
+      <p><strong>{{ ui().subregion }}:</strong> {{ country.subregion }}</p>
 
-<p><strong>{{ ui().area }}:</strong> {{ c.area }} km²</p>
+      <p><strong>{{ ui().area }}:</strong> {{ country.area }} km²</p>
 
       <!-- Idiomas -->
       <p>
-<strong>{{ ui().languages }}:</strong>
-        @if (c.languages; as languages) {
-@for (lang of languages | keyvalue; track lang.key) {
-  <span>{{ lang.value }} </span>
-}
+        <strong>{{ ui().languages }}:</strong>
+        @if (country.languages; as languages) {
+        @for (lang of languages | keyvalue; track lang.key) {
+        <span>{{ lang.value }} </span>
+        }
         }
       </p>
 
       <!-- Moedas -->
       <p>
-<strong>{{ ui().currencies }}:</strong>
-        @if (c.currencies; as currencies) {
-@for (currency of currencies | keyvalue; track currency.key) {
-  <span>{{ currency.value.name }} ({{ currency.value.symbol }}) </span>
-}
+        <strong>{{ ui().currencies }}:</strong>
+        @if (country.currencies; as currencies) {
+        @for (currency of currencies | keyvalue; track currency.key) {
+        <span>{{ currency.value.name }} ({{ currency.value.symbol }}) </span>
+        }
         }
       </p>
 
       <!-- Fronteiras -->
       <div style="margin-top:20px;">
-<h3>{{ ui().borders }}</h3>
+        <h3>{{ ui().borders }}</h3>
 
-        @if (c.borders.length) {
+        @if (country.borders.length) {
 
         <mat-chip-set>
-          @for (border of c.borders; track border) {
-          <mat-chip (click)="goToBorder(border)" style="cursor:pointer;">
-            {{ border }}
-          </mat-chip>
+          @for (border of country.borders; track border) {
+          <button mat-raised-button (click)="goToBorder(border)" class="borders">{{ border }}</button>
           }
         </mat-chip-set>
 
         } @else {
-<p>{{ ui().noBorders }}</p>        }
+        <p>{{ ui().noBorders }}</p> }
 
       </div>
 

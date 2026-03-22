@@ -1,6 +1,11 @@
+.page-container{
+  border: none;
+}
+
 
 .country-detail {
-  gap: 40px;
+  display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
 
 }
@@ -8,5 +13,12 @@
 .country-detail img {
   max-width: 300px;
   width: 100%;
-  box-shadow: -10px 9px 20px 5px rgba(63,81,181,0.8);
+  max-height: 300px;
+  height: 100%;
+  box-shadow: -10px 9px 20px 5px rgba(63, 81, 181, 0.8);
+}
+
+.borders {
+  margin: 0 10px;
+  border: none;
 }
