@@ -4,7 +4,7 @@ export function mapCountry(apiCountry: any): Country {
   return {
     name: apiCountry.name.common,
     cca3: apiCountry.cca3,
-    capital?: apiCountry.capital?.[0] ?? '',
+    capital?: apiCountry.capital ?? '',
     population: apiCountry.population,
     region: apiCountry.region,
     subregion: apiCountry.subregion,
