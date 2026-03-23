@@ -104,27 +104,21 @@
           <!-- Fronteiras -->
           <div style="margin-top:20px;">
             <h3>{{ ui().borders }}</h3>
-
-          @if (country(); as c) {
           
-            @if (c.borders?.length) {
-
-                <mat-chip-set>
-                  @for (border of c.borders; track border) {
-                    <button 
-                      mat-raised-button 
-                      (click)="goToBorder(border)" 
-                      class="borders">
-                      {{ border }}
-                    </button>
-                  }
-                </mat-chip-set>
-
-              } @else {
-                <p>{{ ui().noBorders }}</p>
-              }
+            @if (country.borders?.length) {
+              <mat-chip-set>
+                @for (border of country.borders; track border) {
+                  <button 
+                    mat-raised-button 
+                    (click)="goToBorder(border)" 
+                    class="borders">
+                    {{ border }}
+                  </button>
+                }
+              </mat-chip-set>
+            } @else {
+              <p>{{ ui().noBorders }}</p>
             }
-
           </div>
 
         </div>
