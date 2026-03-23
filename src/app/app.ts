@@ -14,7 +14,9 @@ import { LANGUAGES } from './core/config/languages.config';
   styleUrl: './app.scss'
 })
 export class App {
-  protected readonly title = signal('Explorador de Países');
+  protected readonly title = signal('Country Explorer');
   langService = inject(LanguageService);
   languages = LANGUAGES;
+  public isDesktop: boolean = window.innerWidth > 865;
+
 }

@@ -2,7 +2,14 @@
   <header>
     <mat-toolbar color="primary">
 
-      <span><img src="navegador.png" alt="">{{title()}}</span>
+      <span><img src="navegador.png" alt="">
+
+        @if(isDesktop){
+          {{title()}}
+        }@else{
+          CountryX
+        }
+      </span>
       <mat-divider></mat-divider>
       <button mat-raised-button color="primary" [routerLink]="'/'">Lista de Países</button>
     </mat-toolbar>
