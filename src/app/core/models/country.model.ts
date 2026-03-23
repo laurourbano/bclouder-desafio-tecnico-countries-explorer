@@ -9,6 +9,6 @@ export interface Country {
   flags: { png: string; svg: string; };
   languages: Record<string, string>;
   currencies: Record<string, { name: string; symbol: string; }>;
-  area: number;
+  area: api.area ?? 0,
   translations?: Record<string, { official: string; common: string; }>;
 }
