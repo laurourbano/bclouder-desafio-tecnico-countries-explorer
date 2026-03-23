@@ -1,18 +1,15 @@
-import { Country } from "../models/country.model";
-
-export function mapCountry(apiCountry: any): Country {
-  return {
-    name: apiCountry.name.common,
-    cca3: apiCountry.cca3,
-    capital?: apiCountry.capital ?? '',
-    population: apiCountry.population,
-    region: apiCountry.region,
-    subregion: apiCountry.subregion,
-    flags: apiCountry.flags,
-    borders?: apiCountry.borders ?? [],
-    area: api.area ?? 0,
-    currencies: apiCountry.currencies,
-    languages: apiCountry.languages,
-    translations: api.translations ?? {}
-  };
-}
+export const mapCountry = (api: any): Country => ({
+  name: api.name,
+  cca3: api.cca3,
+  capital: api.capital ?? [],
+  population: api.population,
+  region: api.region,
+  subregion: api.subregion,
+  borders: api.borders ?? [],
+  flags: api.flags,
+  languages: api.languages ?? {},
+  currencies: api.currencies ?? {},
+  area: api.area ?? 0,
+  code: api.cca3,
+  translations: api.translations ?? {} 
+});
