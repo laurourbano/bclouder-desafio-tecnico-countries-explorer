@@ -49,10 +49,8 @@ byRegion(region: string): Observable<Country[]> {
 
 byCca3(cca3: string): Observable<Country> {
   return this.http
-    .get<any>(`${this.apiUrl}/alpha/${cca3}`)
-    .pipe(
-      map(data => mapCountry(Array.isArray(data) ? data[0] : data))
-    );
+    .get<any>(`${this.apiUrl}/alpha/${cca3}`) // sem fields
+    .pipe(map(data => mapCountry(Array.isArray(data) ? data[0] : data)));
 }
 
 }
