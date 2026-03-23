@@ -28,7 +28,7 @@ getAll(): Observable<Country[]> {
   }
 
   return this.http
-    .get<Country[]>(`${this.apiUrl}/all?fields=${this.fieldsLimited}`)
+    .get<any[]>(`${this.apiUrl}/all?fields=${this.fieldsLimited}`)
     .pipe(
       tap(data => {
         this.countriesCache.set(data)
