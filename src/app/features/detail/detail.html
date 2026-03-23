@@ -105,8 +105,9 @@
           <div style="margin-top:20px;">
             <h3>{{ ui().borders }}</h3>
 
-            @if (country as c) {
-              @if (c.borders?.length) {
+          @if (country(); as c) {
+          
+            @if (c.borders?.length) {
 
                 <mat-chip-set>
                   @for (border of c.borders; track border) {
