@@ -30,25 +30,22 @@ getAll(): Observable<Country[]> {
   return this.http
     .get<any[]>(`${this.apiUrl}/all?fields=${this.fieldsLimited}`)
     .pipe(
-      tap(data => {
-        this.countriesCache.set(data)
-      }
-      )
-
+      map(data => data.map(mapCountry)),
+      tap(mapped => this.countriesCache.set(mapped))
     );
 }
 
-  search(name: string) {
-    return this.http.get<Country[]>(
-      `${this.apiUrl}/name/${name}?fields=${this.fields}`
-    );
-  }
+search(name: string) {
+  return this.http.get<Country[]>(
+    `${this.apiUrl}/name/${name}?fields=${this.fields}`
+  );
+}
 
-  byRegion(region: string) {
-    return this.http.get<Country[]>(
-      `${this.apiUrl}/region/${region}?fields=${this.fields}`
-    );
-  }
+byRegion(region: string) {
+  return this.http.get<Country[]>(
+    `${this.apiUrl}/region/${region}?fields=${this.fields}`
+  );
+}
 
 byCca3(cca3: string) {
   return this.http.get<Country[]>(
