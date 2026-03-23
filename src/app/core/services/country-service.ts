@@ -12,45 +12,45 @@ export class CountryService {
 
   private readonly apiUrl = environment.apiUrl;
 
-private readonly fields =
-'name,cca3,capital,population,region,subregion,flags,borders,languages,currencies,translations,area';
-
-private readonly fieldsLimited = 'name,cca3,capital,population,region,subregion,flags,borders,languages,currencies';
+  private readonly fields =
+  'name,cca3,capital,population,region,subregion,flags,borders,languages,currencies,translations,area';
+  
+  private readonly fieldsLimited = 'name,cca3,capital,population,region,subregion,flags,borders,languages,currencies';
 
   private countriesCache = signal<Country[] | null>(null);
 
   constructor(private http: HttpClient) { }
 
-getAll(): Observable<Country[]> {
-
-  if (this.countriesCache()) {
-    return of(this.countriesCache()!);
+  getAll(): Observable<Country[]> {
+  
+    if (this.countriesCache()) {
+      return of(this.countriesCache()!);
+    }
+  
+    return this.http
+      .get<any[]>(`${this.apiUrl}/all?fields=${this.fieldsLimited}`)
+      .pipe(
+        map(data => data.map(mapCountry)),
+        tap(mapped => this.countriesCache.set(mapped))
+      );
   }
-
-  return this.http
-    .get<any[]>(`${this.apiUrl}/all?fields=${this.fieldsLimited}`)
-    .pipe(
-      map(data => data.map(mapCountry)),
-      tap(mapped => this.countriesCache.set(mapped))
-    );
-}
-
-search(name: string): Observable<Country[]> {
-  return this.http
-    .get<any[]>(`${this.apiUrl}/name/${name}?fields=${this.fields}`)
-    .pipe(map(data => data.map(mapCountry)));
-}
-
-byRegion(region: string): Observable<Country[]> {
-  return this.http
-    .get<any[]>(`${this.apiUrl}/region/${region}?fields=${this.fields}`)
-    .pipe(map(data => data.map(mapCountry)));
-}
-
-byCca3(cca3: string): Observable<Country> {
-  return this.http
-    .get<any>(`${this.apiUrl}/alpha/${cca3}`) // sem fields
-    .pipe(map(data => mapCountry(Array.isArray(data) ? data[0] : data)));
-}
+  
+  search(name: string): Observable<Country[]> {
+    return this.http
+      .get<any[]>(`${this.apiUrl}/name/${name}?fields=${this.fields}`)
+      .pipe(map(data => data.map(mapCountry)));
+  }
+  
+  byRegion(region: string): Observable<Country[]> {
+    return this.http
+      .get<any[]>(`${this.apiUrl}/region/${region}?fields=${this.fields}`)
+      .pipe(map(data => data.map(mapCountry)));
+  }
+  
+  byCca3(cca3: string): Observable<Country> {
+    return this.http
+      .get<any>(`${this.apiUrl}/alpha/${cca3}`) // sem fields
+      .pipe(map(data => mapCountry(Array.isArray(data) ? data[0] : data)));
+  }
 
 }
