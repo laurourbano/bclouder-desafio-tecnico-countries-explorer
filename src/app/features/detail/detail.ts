@@ -13,7 +13,7 @@ import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-detail',
-  imports: [RouterModule, MATERIAL_MODULES, KeyValuePipe, NumberPipe],
+  imports: [RouterModule, MATERIAL_MODULES, KeyValuePipe, DecimalPipe],
   templateUrl: './detail.html',
   styleUrl: './detail.scss',
 })
