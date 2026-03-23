@@ -8,11 +8,12 @@ import { LanguageService } from '../../core/services/language-service';
 import { Country } from '../../core/models/country.model';
 import { LANGUAGES } from '../../core/config/languages.config';
 import { UI_TRANSLATIONS } from '../../core/config/ui.translations.config';
+import { DecimalPipe } from '@angular/common';
 
 
 @Component({
   selector: 'app-detail',
-  imports: [RouterModule, MATERIAL_MODULES, KeyValuePipe],
+  imports: [RouterModule, MATERIAL_MODULES, KeyValuePipe, NumberPipe],
   templateUrl: './detail.html',
   styleUrl: './detail.scss',
 })
