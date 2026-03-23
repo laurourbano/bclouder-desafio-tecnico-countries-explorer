@@ -36,8 +36,7 @@ export class Home {
 
   mobileColumns = [
     'flag',
-    'name',
-    'region',
+    'name'
   ];
 
   displayedColumns = this.desktopColumns;

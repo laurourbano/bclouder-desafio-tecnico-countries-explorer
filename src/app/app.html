@@ -1,12 +1,16 @@
-<header>
-  <mat-toolbar color="primary">
+<div class="app-wrapper">
+  <header>
+    <mat-toolbar color="primary">
+
       <span><img src="navegador.png" alt="">{{title()}}</span>
       <mat-divider></mat-divider>
       <button mat-raised-button color="primary" [routerLink]="'/'">Lista de Países</button>
-  </mat-toolbar>
-</header>
-<main>
-  <mat-card>
-    <router-outlet></router-outlet>
-  </mat-card>
-</main>
+    </mat-toolbar>
+  </header>
+  <main>
+    <mat-card>
+      <router-outlet></router-outlet>
+    </mat-card>
+  </main>
+
+</div>

@@ -1,14 +1,16 @@
-.page-container{
-  border: none;
+.page-container {
+  margin-top: 6px;
   height: 85dvh;
+  display: flex;
+  flex-direction: column;
 }
 
 
 .country-detail {
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
   flex-wrap: wrap;
-
 }
 
 .country-detail img {
@@ -28,4 +30,19 @@
 ::ng-deep .mat-mdc-cell,
 ::ng-deep .mat-mdc-header-cell {
   border-bottom: none !important;
+}
+
+@media (max-width:865px) {
+  .page-container {
+    margin-top: 6px;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+  }
+  p {
+    padding: 0;
+    margin: 0;
+  }
 }
