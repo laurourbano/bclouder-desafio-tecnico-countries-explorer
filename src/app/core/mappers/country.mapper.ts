@@ -1,3 +1,5 @@
+import { Country } from '../models/country.model';
+
 export const mapCountry = (api: any): Country => ({
   name: api.name,
   cca3: api.cca3,
