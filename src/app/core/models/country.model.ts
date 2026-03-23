@@ -10,6 +10,5 @@ export interface Country {
   languages: Record<string, string>;
   currencies: Record<string, { name: string; symbol: string; }>;
   area: number;
-  code: string;
   translations?: Record<string, { official: string; common: string; }>;
 }
