@@ -27,10 +27,10 @@ export class Detail {
   loading = signal<boolean>(true);
   languages = LANGUAGES;
 
-ui = computed(() => {
-  const lang = this.langService.language();
-  return UI_TRANSLATIONS[lang] ?? UI_TRANSLATIONS['eng'];
-});
+  ui = computed(() => {
+    const lang = this.langService.language();
+    return UI_TRANSLATIONS[lang] ?? UI_TRANSLATIONS['eng'];
+  });
 
   translatedOfficialName = computed(() => {
 
