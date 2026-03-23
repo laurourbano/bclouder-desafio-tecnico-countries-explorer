@@ -10,7 +10,7 @@ export function mapCountry(apiCountry: any): Country {
     subregion: apiCountry.subregion,
     flags: apiCountry.flags,
     borders?: apiCountry.borders ?? [],
-    area: apiCountry.area,
+    area: api.area ?? 0,
     currencies: apiCountry.currencies,
     languages: apiCountry.languages
   };
