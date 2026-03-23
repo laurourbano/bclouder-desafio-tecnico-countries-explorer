@@ -13,7 +13,7 @@ export class CountryService {
   private readonly apiUrl = environment.apiUrl;
 
 private readonly fields =
-'name,cca3,capital,population,region,subregion,flags,borders,languages,currencies,translations';
+'name,cca3,capital,population,region,subregion,flags,borders,languages,currencies,translations,area';
 
 private readonly fieldsLimited = 'name,cca3,capital,population,region,subregion,flags,borders,languages,currencies';
 
