@@ -72,11 +72,8 @@ ui = computed(() => {
           return this.service.byCca3(cca3!);
         }),
       )
-      .subscribe((response) => {
-        const result = Array.isArray(response) ? response[0] : response;
-
-        this.country.set({ ...result });
-
+      .subscribe((country) => {
+        this.country.set(country);
         this.loading.set(false);
       });
   }
