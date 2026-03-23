@@ -81,7 +81,7 @@ export class Home {
                 return item.name.common;
 
               case 'capital':
-                return item.capital?.[0] || '';
+                return item.capital || '';
 
               case 'population':
                 return item.population;
