@@ -35,22 +35,22 @@ getAll(): Observable<Country[]> {
     );
 }
 
-search(name: string) {
-  return this.http.get<Country[]>(
-    `${this.apiUrl}/name/${name}?fields=${this.fields}`
-  );
+search(name: string): Observable<Country[]> {
+  return this.http
+    .get<any[]>(`${this.apiUrl}/name/${name}?fields=${this.fields}`)
+    .pipe(map(data => data.map(mapCountry)));
 }
 
-byRegion(region: string) {
-  return this.http.get<Country[]>(
-    `${this.apiUrl}/region/${region}?fields=${this.fields}`
-  );
+byRegion(region: string): Observable<Country[]> {
+  return this.http
+    .get<any[]>(`${this.apiUrl}/region/${region}?fields=${this.fields}`)
+    .pipe(map(data => data.map(mapCountry)));
 }
 
-byCca3(cca3: string) {
-  return this.http.get<Country[]>(
-    `${this.apiUrl}/alpha/${cca3}?fields=${this.fields}`
-  );
+byCca3(cca3: string): Observable<Country> {
+  return this.http
+    .get<any>(`${this.apiUrl}/alpha/${cca3}?fields=${this.fields}`)
+    .pipe(map(data => mapCountry(Array.isArray(data) ? data[0] : data)));
 }
 
 
