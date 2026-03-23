@@ -80,7 +80,7 @@
       <div style="margin-top:20px;">
         <h3>{{ ui().borders }}</h3>
 
-        @if (country.borders.length) {
+        @if (country.borders?.length > 0) {
 
         <mat-chip-set>
           @for (border of country.borders; track border) {
