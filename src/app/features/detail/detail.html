@@ -2,106 +2,140 @@
 
   <div style="margin-bottom:20px;">
     <button mat-stroked-button (click)="goBack()">
-      ← {{ ui().back }}.
+      ← {{ ui().back }}
     </button>
   </div>
 
   @if (loading()) {
 
-  <div style="display:flex; justify-content:center; margin-top:40px;">
-    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-  </div>
+    <div style="display:flex; justify-content:center; margin-top:40px;">
+      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    </div>
 
   } @else {
 
-  @if (country(); as country) {
+    @if (country(); as country) {
 
-  <div style="display:flex; gap:10px; align-items:flex-start; flex-wrap:wrap;">
+      <div style="display:flex; gap:10px; align-items:flex-start; flex-wrap:wrap;">
 
-    <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ ui().language }}</mat-label>
 
-      <mat-label>{{ ui().language }}</mat-label>
+          <mat-select 
+            [value]="langService.language()" 
+            (selectionChange)="langService.setLanguage($event.value)">
 
-      <mat-select [value]="langService.language()" (selectionChange)="langService.setLanguage($event.value)">
+            @for (lang of languages; track lang.code) {
+              <mat-option [value]="lang.code">
+                {{ lang.label }}
+              </mat-option>
+            }
 
-        @for (lang of languages; track lang.code) {
-        <mat-option [value]="lang.code">
-          {{ lang.label }}
-        </mat-option>
-        }
+          </mat-select>
+        </mat-form-field>
 
-      </mat-select>
+        <!-- Bandeira -->
+        <div class="country-detail">
+          <img 
+            [src]="country.flags.svg" 
+            [alt]="country.name.common" 
+            width="300" 
+            style="border-radius:8px;" 
+          />
+        </div>
 
-    </mat-form-field>
+        <!-- Informações -->
+        <div style="max-width:600px;" class="country-detail">
 
-    <!-- Bandeira -->
-    <div class="country-detail">
-      <img [src]="country.flags.svg" [alt]="country.name.common" width="300" style="border-radius:8px;" />
-    </div>
+          <h2>{{ translatedName() }}</h2>
 
-    <!-- Informações -->
-    <div style="max-width:600px;" class="country-detail">
+          <p>
+            <strong>{{ ui().officialName }}:</strong> 
+            {{ translatedOfficialName() }}
+          </p>
 
-      <h2>{{ translatedName() }}</h2>
+          <p>
+            <strong>{{ ui().capital }}:</strong> 
+            {{ country.capital?.join(', ') || '—' }}
+          </p>
 
-      <p><strong>{{ ui().officialName }}:</strong> {{ translatedOfficialName() }}</p>
+          <p>
+            <strong>{{ ui().population }}:</strong> 
+            {{ country.population | number }}
+          </p>
 
-      <p><strong>{{ ui().capital }}:</strong> {{ country.capital || '—' }}</p>
+          <p>
+            <strong>{{ ui().region }}:</strong> 
+            {{ country.region }}
+          </p>
 
-      <p><strong>{{ ui().population }}:</strong> {{ country.population }}</p>
+          <p>
+            <strong>{{ ui().subregion }}:</strong> 
+            {{ country.subregion }}
+          </p>
 
-      <p><strong>{{ ui().region }}:</strong> {{ country.region }}</p>
+          <p>
+            <strong>{{ ui().area }}:</strong> 
+            {{ country.area | number:'1.0-0' }} km²
+          </p>
 
-      <p><strong>{{ ui().subregion }}:</strong> {{ country.subregion }}</p>
+          <!-- Idiomas -->
+          <p>
+            <strong>{{ ui().languages }}:</strong>
+            @if (country.languages; as languages) {
+              @for (lang of languages | keyvalue; track lang.key) {
+                <span>{{ lang.value }} </span>
+              }
+            }
+          </p>
 
-      <p><strong>{{ ui().area }}:</strong> {{ country.area | number:'1.0-0'  }} km²</p>
+          <!-- Moedas -->
+          <p>
+            <strong>{{ ui().currencies }}:</strong>
+            @if (country.currencies; as currencies) {
+              @for (currency of currencies | keyvalue; track currency.key) {
+                <span>
+                  {{ currency.value.name }} ({{ currency.value.symbol }})
+                </span>
+              }
+            }
+          </p>
 
-      <!-- Idiomas -->
-      <p>
-        <strong>{{ ui().languages }}:</strong>
-        @if (country.languages; as languages) {
-        @for (lang of languages | keyvalue; track lang.key) {
-        <span>{{ lang.value }} </span>
-        }
-        }
-      </p>
+          <!-- Fronteiras -->
+          <div style="margin-top:20px;">
+            <h3>{{ ui().borders }}</h3>
 
-      <!-- Moedas -->
-      <p>
-        <strong>{{ ui().currencies }}:</strong>
-        @if (country.currencies; as currencies) {
-        @for (currency of currencies | keyvalue; track currency.key) {
-        <span>{{ currency.value.name }} ({{ currency.value.symbol }}) </span>
-        }
-        }
-      </p>
+            @if (country as c) {
+              @if (c.borders?.length) {
 
-      <!-- Fronteiras -->
-      <div style="margin-top:20px;">
-        <h3>{{ ui().borders }}</h3>
+                <mat-chip-set>
+                  @for (border of c.borders; track border) {
+                    <button 
+                      mat-raised-button 
+                      (click)="goToBorder(border)" 
+                      class="borders">
+                      {{ border }}
+                    </button>
+                  }
+                </mat-chip-set>
 
-        @if (country?.borders?.length > 0) {
+              } @else {
+                <p>{{ ui().noBorders }}</p>
+              }
+            }
 
-        <mat-chip-set>
-          @for (border of country.borders; track border) {
-          <button mat-raised-button (click)="goToBorder(border)" class="borders">{{ border }}</button>
-          }
-        </mat-chip-set>
+          </div>
 
-        } @else {
-        <p>{{ ui().noBorders }}</p> }
+        </div>
 
       </div>
 
-    </div>
+    } @else {
 
-  </div>
+      <p>País não encontrado</p>
 
-  } @else {
-
-  <p>País não encontrado</p>
+    }
 
   }
 
-  }
 </div>
