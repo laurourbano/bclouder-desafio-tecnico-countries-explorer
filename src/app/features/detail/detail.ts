@@ -1,15 +1,14 @@
-import { Component, inject, signal, effect, computed } from '@angular/core';
+import { Component, inject, signal, computed, DestroyRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CountryService } from '../../core/services/country-service';
 import { MATERIAL_MODULES } from '../../shared/material/material.config';
 import { switchMap } from 'rxjs/operators';
-import { KeyValuePipe } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { KeyValuePipe, DecimalPipe } from '@angular/common';
 import { LanguageService } from '../../core/services/language-service';
 import { Country } from '../../core/models/country.model';
 import { LANGUAGES } from '../../core/config/languages.config';
 import { UI_TRANSLATIONS } from '../../core/config/ui.translations.config';
-import { DecimalPipe } from '@angular/common';
-
 
 @Component({
   selector: 'app-detail',
@@ -17,14 +16,16 @@ import { DecimalPipe } from '@angular/common';
   templateUrl: './detail.html',
   styleUrl: './detail.scss',
 })
-export class Detail {
+export class Detail implements OnInit {
   private route = inject(ActivatedRoute);
   private service = inject(CountryService);
   private router = inject(Router);
+  private destroyRef = inject(DestroyRef);
   protected langService = inject(LanguageService);
 
   country = signal<Country | null>(null);
   loading = signal<boolean>(true);
+  error = signal<string | null>(null);
   languages = LANGUAGES;
 
   ui = computed(() => {
@@ -33,48 +34,42 @@ export class Detail {
   });
 
   translatedOfficialName = computed(() => {
-
     const country = this.country();
     const lang = this.langService.language();
-
     if (!country) return '';
-
-    if (lang === 'eng') {
-      return country.name?.official;
-    }
-
+    if (lang === 'eng') return country.name?.official;
     return country.translations?.[lang]?.official ?? country.name?.official;
-
   });
 
   translatedName = computed(() => {
-
     const country = this.country();
     const lang = this.langService.language();
-
     if (!country) return '';
-
-    if (lang === 'eng') {
-      return country.name?.common;
-    }
-
+    if (lang === 'eng') return country.name?.common;
     return country.translations?.[lang]?.common ?? country.name?.common;
-
   });
 
-
-  constructor() {
+  ngOnInit() {
     this.route.paramMap
       .pipe(
         switchMap((params) => {
           const cca3 = params.get('cca3');
           this.loading.set(true);
+          this.error.set(null);
           return this.service.byCca3(cca3!);
         }),
+        takeUntilDestroyed(this.destroyRef),
       )
-      .subscribe((country) => {
-        this.country.set(country);
-        this.loading.set(false);
+      .subscribe({
+        next: (country) => {
+          this.country.set(country);
+          this.loading.set(false);
+        },
+        error: (err) => {
+          console.error('Erro ao buscar país:', err);
+          this.error.set('Não foi possível carregar os dados do país.');
+          this.loading.set(false);
+        },
       });
   }
 
