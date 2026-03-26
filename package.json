@@ -1,6 +1,8 @@
 {
   "name": "bclouder-desafio-tecnico-countries-explorer",
   "version": "0.0.0",
+  "private": true,
+  "packageManager": "npm@11.7.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -20,28 +22,27 @@
       }
     ]
   },
-  "private": true,
-  "packageManager": "npm@11.7.0",
   "dependencies": {
-    "@angular/cdk": "~21.2.0",
-    "@angular/common": "^21.1.0",
-    "@angular/compiler": "^21.1.0",
-    "@angular/core": "^21.1.0",
-    "@angular/forms": "^21.1.0",
-    "@angular/material": "~21.2.0",
-    "@angular/platform-browser": "^21.1.0",
-    "@angular/router": "^21.1.0",
+    "@angular/animations": "21.2.4",
+    "@angular/cdk": "21.2.4",
+    "@angular/common": "21.2.4",
+    "@angular/compiler": "21.2.4",
+    "@angular/core": "21.2.4",
+    "@angular/forms": "21.2.4",
+    "@angular/material": "21.2.4",
+    "@angular/platform-browser": "21.2.4",
+    "@angular/platform-browser-dynamic": "21.2.4",
+    "@angular/router": "21.2.4",
     "ngx-toastr": "^20.0.5",
-    "rxjs": "~7.8.0",
+    "rxjs": "7.8.1",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
-    "@angular/build": "^21.1.5",
-    "@angular/cli": "^21.1.5",
-    "@angular/compiler-cli": "^21.1.0",
-    "@angular/material": "^21.2.0",
+    "@angular/build": "21.2.4",
+    "@angular/cli": "21.2.4",
+    "@angular/compiler-cli": "21.2.4",
     "jsdom": "^27.1.0",
-    "typescript": "~5.9.2",
+    "typescript": "5.9.2",
     "vitest": "^4.0.8"
   }
 }
