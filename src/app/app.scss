@@ -1,3 +1,15 @@
+
+
+:host{
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+}
+
+.app-wrapper {
+  height: 100dvh;
+}
+
 mat-toolbar {
   display: flex;
   flex-wrap: nowrap;
@@ -11,10 +23,26 @@ mat-toolbar span {
 mat-card{
   margin: 0 auto;
   overflow: hidden;
+  border: none;
 }
 
 
 mat-divider{
     flex: 1 1 auto;
     border: none;
+}
+
+span {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+img {
+  width: 50px;
+  border-radius: 50%;
+}
+
+@media (max-width: 865px){
+
 }
