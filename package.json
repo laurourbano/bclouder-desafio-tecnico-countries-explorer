@@ -47,5 +47,10 @@
   },
   "engines": {
   "node": "20.0"
+},
+"overrides": {
+  "ngx-toastr": {
+    "rxjs": "^7.4.0"
+  }
 }
 }
