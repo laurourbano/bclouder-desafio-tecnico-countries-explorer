@@ -1,7 +1,8 @@
-import { Component, computed, inject, signal, ViewChild } from '@angular/core';
+import { Component, computed, inject, signal, ViewChild, ChangeDetectionStrategy, DestroyRef, OnInit } from '@angular/core';
 import { CountryService } from '../../core/services/country-service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, startWith, Subject, takeUntil } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MATERIAL_MODULES } from '../../shared/material/material.config';
 import { RouterModule, Router } from "@angular/router";
 import { DecimalPipe } from '@angular/common';
@@ -10,6 +11,7 @@ import { Country } from '../../core/models/country.model';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ToastrService } from 'ngx-toastr';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   standalone: true,
@@ -21,7 +23,8 @@ import { ToastrService } from 'ngx-toastr';
     DecimalPipe
   ],
   templateUrl: './home.html',
-  styleUrl: './home.scss'
+  styleUrl: './home.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Home {
 
@@ -44,6 +47,8 @@ export class Home {
   private service = inject(CountryService);
   private router = inject(Router);
   private toastr = inject(ToastrService);
+  private destroyRef = inject(DestroyRef);
+  private breakpointObserver = inject(BreakpointObserver);
 
 
   dataSource = new MatTableDataSource<Country>();
@@ -60,13 +65,10 @@ export class Home {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  private destroy$ = new Subject<void>();
-
-
   ngOnInit(): void {
 
     this.service.getAll()
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: countries => {
 
@@ -134,12 +136,12 @@ export class Home {
     this.searchControl.valueChanges.pipe(
       debounceTime(300),
       distinctUntilChanged(),
-      takeUntil(this.destroy$)
+      takeUntilDestroyed(this.destroyRef)
     ).subscribe(val => this.applyFilter(val ?? ''));
 
 
     this.regionControl.valueChanges.pipe(
-      takeUntil(this.destroy$)
+      takeUntilDestroyed(this.destroyRef)
     ).subscribe(() => this.applyFilter(this.searchControl.value ?? ''));
 
 
@@ -154,30 +156,17 @@ export class Home {
 
       const search = normalize(text);
 
-      const matchText =
-        !search ||
-        normalize(country.name.common).includes(search) ||
-        normalize(country.name.official).includes(search) ||
-        normalize(country.capital?.[0] || '').includes(search);
-
-      const matchRegion =
-        !region || country.region === region;
+      const matchText = !search || !!(country.searchableText && country.searchableText.includes(search));
+      const matchRegion = !region || country.region === region;
 
       return matchText && matchRegion;
     };
 
-    const checkScreen = () => {
-      if (window.innerWidth < 768) {
-        this.displayedColumns = this.mobileColumns;
-      } else {
-        this.displayedColumns = this.desktopColumns;
-      }
-    };
-
-    checkScreen();
-
-    this.resizeHandler();
-    window.addEventListener('resize', this.resizeHandler);
+    this.breakpointObserver.observe([Breakpoints.Handset])
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(result => {
+        this.displayedColumns = result.matches ? this.mobileColumns : this.desktopColumns;
+      });
   }
 
 
@@ -209,19 +198,5 @@ export class Home {
     this.router.navigate(['/countries', code]);
 
   }
-
-  ngOnDestroy(): void {
-
-    this.destroy$.next();
-    this.destroy$.complete();
-    window.removeEventListener('resize', this.resizeHandler);
-  }
-
-  private resizeHandler = () => {
-    this.displayedColumns =
-      window.innerWidth < 768
-        ? this.mobileColumns
-        : this.desktopColumns;
-  };
 
 }

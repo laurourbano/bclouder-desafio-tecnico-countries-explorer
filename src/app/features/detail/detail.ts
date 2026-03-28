@@ -1,4 +1,4 @@
-import { Component, inject, signal, computed, DestroyRef, OnInit } from '@angular/core';
+import { Component, inject, signal, computed, DestroyRef, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CountryService } from '../../core/services/country-service';
 import { MATERIAL_MODULES } from '../../shared/material/material.config';
@@ -12,9 +12,11 @@ import { UI_TRANSLATIONS } from '../../core/config/ui.translations.config';
 
 @Component({
   selector: 'app-detail',
+  standalone: true,
   imports: [RouterModule, MATERIAL_MODULES, KeyValuePipe, DecimalPipe],
   templateUrl: './detail.html',
   styleUrl: './detail.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Detail implements OnInit {
   private route = inject(ActivatedRoute);

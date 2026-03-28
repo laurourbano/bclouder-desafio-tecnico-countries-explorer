@@ -4,6 +4,7 @@ import { Country } from '../models/country.model';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable, of, tap } from 'rxjs';
 import { mapCountry } from '../mappers/country.mapper';
+import { RestCountryApiResponse } from '../models/rest-countries.model';
 
 @Injectable({
   providedIn: 'root',
@@ -28,7 +29,7 @@ export class CountryService {
     }
   
     return this.http
-      .get<any[]>(`${this.apiUrl}/all?fields=${this.fieldsLimited}`)
+      .get<RestCountryApiResponse[]>(`${this.apiUrl}/all?fields=${this.fieldsLimited}`)
       .pipe(
         map(data => data.map(mapCountry)),
         tap(mapped => this.countriesCache.set(mapped))
@@ -37,19 +38,19 @@ export class CountryService {
   
   search(name: string): Observable<Country[]> {
     return this.http
-      .get<any[]>(`${this.apiUrl}/name/${name}?fields=${this.fields}`)
+      .get<RestCountryApiResponse[]>(`${this.apiUrl}/name/${name}?fields=${this.fields}`)
       .pipe(map(data => data.map(mapCountry)));
   }
   
   byRegion(region: string): Observable<Country[]> {
     return this.http
-      .get<any[]>(`${this.apiUrl}/region/${region}?fields=${this.fields}`)
+      .get<RestCountryApiResponse[]>(`${this.apiUrl}/region/${region}?fields=${this.fields}`)
       .pipe(map(data => data.map(mapCountry)));
   }
   
   byCca3(cca3: string): Observable<Country> {
     return this.http
-      .get<any>(`${this.apiUrl}/alpha/${cca3}`) // sem fields
+      .get<RestCountryApiResponse[]>(`${this.apiUrl}/alpha/${cca3}`) // sem fields
       .pipe(map(data => mapCountry(Array.isArray(data) ? data[0] : data)));
   }
 

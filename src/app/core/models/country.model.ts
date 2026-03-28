@@ -16,4 +16,5 @@ export interface Country {
     official: string;
     common: string;
   }>;
+  searchableText?: string;
 }
