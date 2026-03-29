@@ -15,6 +15,24 @@ export const UI_TRANSLATIONS: Record<
     borders: string;
     noBorders: string;
     language: string;
+    searchPlaceholder: string;
+    regionLabel: string;
+    allRegions: string;
+    clearFilters: string;
+    tableCountry: string;
+    tableCapital: string;
+    tableRegion: string;
+    tablePopulation: string;
+    notFound: string;
+    countriesLoaded: string;
+    countriesError: string;
+    invalidCode: string;
+    africa: string;
+    americas: string;
+    asia: string;
+    europe: string;
+    oceania: string;
+    antarctic: string;
   }
 > = {
   eng: {
@@ -29,7 +47,25 @@ export const UI_TRANSLATIONS: Record<
     currencies: 'Currencies',
     borders: 'Border Countries',
     noBorders: 'No borders',
-    language: 'Language'
+    language: 'Language',
+    searchPlaceholder: 'Search country...',
+    regionLabel: 'Region',
+    allRegions: 'All Regions',
+    clearFilters: 'Clear Filters',
+    tableCountry: 'Country',
+    tableCapital: 'Capital',
+    tableRegion: 'Region',
+    tablePopulation: 'Population',
+    notFound: 'No country found matching the applied filters.',
+    countriesLoaded: 'countries loaded',
+    countriesError: 'Could not load countries',
+    invalidCode: 'Invalid country code',
+    africa: 'Africa',
+    americas: 'Americas',
+    asia: 'Asia',
+    europe: 'Europe',
+    oceania: 'Oceania',
+    antarctic: 'Antarctic'
   },
 
   por: {
@@ -44,7 +80,25 @@ export const UI_TRANSLATIONS: Record<
     currencies: 'Moedas',
     borders: 'Países Fronteiriços',
     noBorders: 'Não possui fronteiras',
-    language: 'Idioma'
+    language: 'Idioma',
+    searchPlaceholder: 'Buscar país...',
+    regionLabel: 'Região',
+    allRegions: 'Todas as Regiões',
+    clearFilters: 'Limpar Filtros',
+    tableCountry: 'País',
+    tableCapital: 'Capital',
+    tableRegion: 'Região',
+    tablePopulation: 'População',
+    notFound: 'Nenhum país encontrado para os filtros aplicados.',
+    countriesLoaded: 'países carregados',
+    countriesError: 'Não foi possível carregar os países',
+    invalidCode: 'Código de país inválido',
+    africa: 'África',
+    americas: 'Américas',
+    asia: 'Ásia',
+    europe: 'Europa',
+    oceania: 'Oceania',
+    antarctic: 'Antártica'
   },
 
   spa: {
@@ -59,7 +113,25 @@ export const UI_TRANSLATIONS: Record<
     currencies: 'Monedas',
     borders: 'Países Fronterizos',
     noBorders: 'No tiene fronteras',
-    language: 'Idioma'
+    language: 'Idioma',
+    searchPlaceholder: 'Buscar país...',
+    regionLabel: 'Región',
+    allRegions: 'Todas las Regiones',
+    clearFilters: 'Limpiar Filtros',
+    tableCountry: 'País',
+    tableCapital: 'Capital',
+    tableRegion: 'Región',
+    tablePopulation: 'Población',
+    notFound: 'No se encontraron países para los filtros aplicados.',
+    countriesLoaded: 'países cargados',
+    countriesError: 'No se pudieron cargar los países',
+    invalidCode: 'Código de país inválido',
+    africa: 'África',
+    americas: 'Américas',
+    asia: 'Asia',
+    europe: 'Europa',
+    oceania: 'Oceanía',
+    antarctic: 'Antártida'
   },
 
   fra: {
@@ -74,7 +146,25 @@ export const UI_TRANSLATIONS: Record<
     currencies: 'Devises',
     borders: 'Pays Frontaliers',
     noBorders: 'Pas de frontières',
-    language: 'Langue'
+    language: 'Langue',
+    searchPlaceholder: 'Chercher un pays...',
+    regionLabel: 'Région',
+    allRegions: 'Toutes les Régions',
+    clearFilters: 'Effacer les Filtres',
+    tableCountry: 'Pays',
+    tableCapital: 'Capitale',
+    tableRegion: 'Région',
+    tablePopulation: 'Population',
+    notFound: 'Aucun pays trouvé pour les filtres appliqués.',
+    countriesLoaded: 'pays chargés',
+    countriesError: 'Impossible de charger les pays',
+    invalidCode: 'Code de pays invalide',
+    africa: 'Afrique',
+    americas: 'Amériques',
+    asia: 'Asie',
+    europe: 'Europe',
+    oceania: 'Océanie',
+    antarctic: 'Antarctique'
   },
 
   deu: {
@@ -89,6 +179,24 @@ export const UI_TRANSLATIONS: Record<
     currencies: 'Währungen',
     borders: 'Nachbarländer',
     noBorders: 'Keine Grenzen',
-    language: 'Sprache'
+    language: 'Sprache',
+    searchPlaceholder: 'Land suchen...',
+    regionLabel: 'Region',
+    allRegions: 'Alle Regionen',
+    clearFilters: 'Filter löschen',
+    tableCountry: 'Land',
+    tableCapital: 'Hauptstadt',
+    tableRegion: 'Region',
+    tablePopulation: 'Bevölkerung',
+    notFound: 'Kein Land für die angewendeten Filter gefunden.',
+    countriesLoaded: 'Länder geladen',
+    countriesError: 'Länder konnten nicht geladen werden',
+    invalidCode: 'Ungültiger Ländercode',
+    africa: 'Afrika',
+    americas: 'Amerikas',
+    asia: 'Asien',
+    europe: 'Europa',
+    oceania: 'Ozeanien',
+    antarctic: 'Antarktis'
   }
 };

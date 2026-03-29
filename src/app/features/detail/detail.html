@@ -18,22 +18,6 @@
 
       <div style="display:flex; gap:10px; align-items:flex-start; flex-wrap:wrap;">
 
-        <mat-form-field appearance="outline">
-          <mat-label>{{ ui().language }}</mat-label>
-
-          <mat-select 
-            [value]="langService.language()" 
-            (selectionChange)="langService.setLanguage($event.value)">
-
-            @for (lang of languages; track lang.code) {
-              <mat-option [value]="lang.code">
-                {{ lang.label }}
-              </mat-option>
-            }
-
-          </mat-select>
-        </mat-form-field>
-
         <!-- Bandeira -->
         <div class="country-detail">
           <img 
@@ -47,11 +31,11 @@
         <!-- Informações -->
         <div style="max-width:600px;" class="country-detail">
 
-          <h2>{{ translatedName() }}</h2>
+          <h2>{{ country | translateCountry : langService.language() }}</h2>
 
           <p>
             <strong>{{ ui().officialName }}:</strong> 
-            {{ translatedOfficialName() }}
+            {{ country | translateCountry : langService.language() : 'official' }}
           </p>
 
           <p>
@@ -66,7 +50,7 @@
 
           <p>
             <strong>{{ ui().region }}:</strong> 
-            {{ country.region }}
+            {{ country.region | translateRegion : langService.language() }}
           </p>
 
           <p>

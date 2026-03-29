@@ -2,7 +2,7 @@
 
   <div class="page-header">
 
-    <h1>Explorador de Países</h1>
+    <h1>Country Explorer</h1>
 
 
   </div>
@@ -17,11 +17,11 @@
   <div class="controls">
 
     <mat-form-field appearance="outline" class="search-field">
-      <mat-label>Buscar país</mat-label>
+      <mat-label>{{ ui().searchPlaceholder }}</mat-label>
 
       <mat-icon matPrefix>search</mat-icon>
 
-      <input matInput [formControl]="searchControl" placeholder="Ex: Brazil, Germany..." autocomplete="off">
+      <input matInput [formControl]="searchControl" [placeholder]="ui().searchPlaceholder" autocomplete="off">
 
       @if (searchControl.value) {
       <button matSuffix mat-icon-button (click)="searchControl.setValue('')">
@@ -34,11 +34,11 @@
 
     <mat-form-field appearance="outline" class="region-field" >
 
-      <mat-label>Região</mat-label>
+      <mat-label>{{ ui().regionLabel }}</mat-label>
 
       <mat-select [formControl]="regionControl">
 
-        <mat-option value="">Todas</mat-option>
+        <mat-option value="">{{ ui().allRegions }}</mat-option>
 
         @for (regiao of regions(); track regiao) {
         <mat-option [value]="regiao.value">{{regiao.label}}</mat-option>
@@ -53,7 +53,7 @@
 
     <button mat-stroked-button color="warn" (click)="clearFilters()" class="clear-btn">
       <mat-icon>filter_alt_off</mat-icon>
-      Limpar filtros
+      {{ ui().clearFilters }}
     </button>
 
     }
@@ -73,7 +73,7 @@
 
         <td mat-cell *matCellDef="let country" class="flag-cell">
 
-          <img [src]="country.flags.svg || country.flags.png" [alt]="'Bandeira de ' + country.name.common" class="flag-img" loading="lazy">
+          <img [src]="country.flags.svg || country.flags.png" [alt]="'Flag of ' + country.name.common" class="flag-img" loading="lazy">
 
         </td>
 
@@ -83,18 +83,18 @@
       <ng-container matColumnDef="name">
 
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
-          País
+          {{ ui().tableCountry }}
         </th>
 
         <td mat-cell *matCellDef="let country">
 
           <div class="country-name">
           <button mat-button color="primary" class="mobile"><mat-icon class="mat-18">touch_app</mat-icon></button>
-            {{ country.name.common }}
+            {{ country | translateCountry : langService.language() }}
           </div>
 
           <div class="country-official">
-            {{ country.name.official }}
+            {{ country | translateCountry : langService.language() : 'official' }}
           </div>
 
 
@@ -106,7 +106,7 @@
       <ng-container matColumnDef="capital">
 
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
-          Capital
+          {{ ui().tableCapital }}
         </th>
 
         <td mat-cell *matCellDef="let country">
@@ -119,13 +119,13 @@
       <ng-container matColumnDef="region" class="mobile-hide">
 
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
-          Região
+          {{ ui().tableRegion }}
         </th>
 
         <td mat-cell *matCellDef="let country">
 
-          <span class="region-chip">
-            {{ country.region }}
+          <span class="region-chip" [attr.data-region]="country.region">
+            {{ country.region | translateRegion: langService.language() }}
           </span>
 
         </td>
@@ -136,7 +136,7 @@
       <ng-container matColumnDef="population" >
 
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
-          População
+          {{ ui().tablePopulation }}
         </th>
 
         <td mat-cell *matCellDef="let country" class="pop-cell">
@@ -155,8 +155,7 @@
     <button
       mat-icon-button
       color="primary"
-      [matTooltip]="'Ver detalhes de ' + country.name.common"
-  (click)="openDetail(country); $event.stopPropagation()"
+      (click)="openDetail(country); $event.stopPropagation()"
     >
       <mat-icon>search</mat-icon>
     </button>
@@ -181,7 +180,7 @@
           <mat-icon>search_off</mat-icon>
 
           <p>
-            Nenhum país encontrado para os filtros aplicados.
+            {{ ui().notFound }}
           </p>
 
         </td>

@@ -43,6 +43,33 @@ img {
   border-radius: 50%;
 }
 
+.header-toolbar {
+  --mat-sys-on-surface: var(--mat-sys-on-primary, #ffffff);
+  --mat-sys-on-surface-variant: rgba(255, 255, 255, 0.75);
+
+  ::ng-deep app-language-select {
+    --mat-sys-outline: rgba(255, 255, 255, 0.5);
+
+    .mat-mdc-select-value-text {
+      color: #ffffff;
+      font-weight: 500;
+    }
+    
+    .mat-mdc-form-field-flex {
+      background: transparent !important;
+    }
+    
+    .mat-mdc-form-field-infix {
+      padding-top: 8px !important;
+      padding-bottom: 8px !important;
+    }
+  }
+
+  button {
+    color: var(--mat-sys-on-primary, #ffffff) !important;
+  }
+}
+
 @media (max-width: 865px){
 
 }

@@ -1,8 +1,8 @@
 <div class="app-wrapper">
   <header>
-    <mat-toolbar color="primary">
+    <mat-toolbar color="primary" class="header-toolbar">
 
-      <span><img src="navegador.png" alt="">
+      <span><img src="navegador.png" alt="" style="margin-right: 8px;">
 
         @if(isDesktop){
           {{title()}}
@@ -10,8 +10,14 @@
           CountryX
         }
       </span>
-      <mat-divider></mat-divider>
-      <button mat-raised-button color="primary" [routerLink]="'/'">Lista de Países</button>
+      <span style="flex: 1 1 auto;"></span>
+      
+      <app-language-select></app-language-select>
+      
+      <button mat-icon-button (click)="themeService.toggleTheme()" style="margin-left: 8px;">
+        <mat-icon>{{ themeService.theme() === 'dark' ? 'light_mode' : 'dark_mode' }}</mat-icon>
+      </button>
+
     </mat-toolbar>
   </header>
   <main>

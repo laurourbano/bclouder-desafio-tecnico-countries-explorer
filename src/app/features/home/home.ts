@@ -12,6 +12,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ToastrService } from 'ngx-toastr';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { LanguageService } from '../../core/services/language-service';
+import { UI_TRANSLATIONS } from '../../core/config/ui.translations.config';
+import { TranslateCountryPipe } from '../../shared/pipes/translate-country.pipe';
+import { TranslateRegionPipe } from '../../shared/pipes/translate-region.pipe';
 
 @Component({
   standalone: true,
@@ -20,13 +24,15 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
     ReactiveFormsModule,
     MATERIAL_MODULES,
     RouterModule,
-    DecimalPipe
+    DecimalPipe,
+    TranslateCountryPipe,
+    TranslateRegionPipe
   ],
   templateUrl: './home.html',
   styleUrl: './home.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class Home {
+export class Home implements OnInit {
 
   desktopColumns = [
     'flag',
@@ -49,6 +55,9 @@ export class Home {
   private toastr = inject(ToastrService);
   private destroyRef = inject(DestroyRef);
   private breakpointObserver = inject(BreakpointObserver);
+  langService = inject(LanguageService);
+
+  ui = computed(() => UI_TRANSLATIONS[this.langService.language()] ?? UI_TRANSLATIONS['eng']);
 
 
   dataSource = new MatTableDataSource<Country>();
@@ -60,7 +69,19 @@ export class Home {
   searchControl = new FormControl('');
   regionControl = new FormControl('');
 
-  regions = signal<{ label: string; value: string }[]>([]);
+  rawRegions = signal<string[]>([]);
+  regions = computed(() => {
+    const t = this.ui() as any;
+    return this.rawRegions()
+      .map(region => {
+        const key = region.toLowerCase();
+        return {
+          value: region,
+          label: t[key] || region
+        };
+      })
+      .sort((a, b) => a.label.localeCompare(b.label));
+  });
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -81,54 +102,34 @@ export class Home {
             switch (property) {
               case 'name':
                 return item.name.common;
-
               case 'capital':
-                return item.capital || '';
-
+                return item.capital?.[0] || '';
               case 'population':
                 return item.population;
-
               case 'region':
                 return item.region;
-
               default:
                 return (item as any)[property];
             }
           };
-          // Gerar regiões dinamicamente como Rafael sugeriu
+
           const uniqueRegions = Array.from(
             new Set(countries.map(c => c.region).filter(Boolean))
           );
-
-          const regionMap: Record<string, string> = {
-            Africa: 'África',
-            Americas: 'Américas',
-            Asia: 'Ásia',
-            Europe: 'Europa',
-            Oceania: 'Oceania',
-            Antarctic: 'Antártida'
-          };
-
-          const formatted = uniqueRegions
-            .map(region => ({
-              value: region,
-              label: regionMap[region] || region
-            }))
-            .sort((a, b) => a.label.localeCompare(b.label));
-
-          this.regions.set(formatted);
+          
+          this.rawRegions.set(uniqueRegions);
 
           setTimeout(() => {
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
           });
 
-          this.toastr.success(`${countries.length} países carregados`, 'Pronto');
+          this.toastr.success(`${countries.length} ${this.ui().countriesLoaded}`, 'OK');
         },
 
         error: () => {
           this.loading.set(false);
-          this.toastr.error('Não foi possível carregar os países', 'Erro');
+          // Substituido pelo error interceptor nativo
         }
       });
 
@@ -181,22 +182,19 @@ export class Home {
 
 
   clearFilters(): void {
-
     this.searchControl.setValue('');
     this.regionControl.setValue('');
   }
 
   openDetail(country: Country): void {
-
     const code = country.cca3;
 
     if (!code) {
-      this.toastr.error('Código do país inválido');
+      this.toastr.error(this.ui().invalidCode);
       return;
     }
 
     this.router.navigate(['/countries', code]);
-
   }
 
 }

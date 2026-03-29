@@ -18,5 +18,10 @@ export const mapCountry = (api: RestCountryApiResponse): Country => ({
   area: api.area ?? 0,
   code: api.cca3,
   translations: api.translations ?? {},
-  searchableText: `${normalize(api.name.common)}|${normalize(api.name.official)}|${normalize(api.capital?.[0] || '')}`
+  searchableText: [
+    normalize(api.name.common),
+    normalize(api.name.official),
+    normalize(api.capital?.[0] || ''),
+    ...(api.translations ? Object.values(api.translations).map(t => `${normalize(t.common)} ${normalize(t.official)}`) : [])
+  ].join(' | ')
 });

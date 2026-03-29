@@ -9,11 +9,13 @@ import { LanguageService } from '../../core/services/language-service';
 import { Country } from '../../core/models/country.model';
 import { LANGUAGES } from '../../core/config/languages.config';
 import { UI_TRANSLATIONS } from '../../core/config/ui.translations.config';
+import { TranslateRegionPipe } from '../../shared/pipes/translate-region.pipe';
+import { TranslateCountryPipe } from '../../shared/pipes/translate-country.pipe';
 
 @Component({
   selector: 'app-detail',
   standalone: true,
-  imports: [RouterModule, MATERIAL_MODULES, KeyValuePipe, DecimalPipe],
+  imports: [RouterModule, MATERIAL_MODULES, KeyValuePipe, DecimalPipe, TranslateRegionPipe, TranslateCountryPipe],
   templateUrl: './detail.html',
   styleUrl: './detail.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -35,21 +37,7 @@ export class Detail implements OnInit {
     return UI_TRANSLATIONS[lang] ?? UI_TRANSLATIONS['eng'];
   });
 
-  translatedOfficialName = computed(() => {
-    const country = this.country();
-    const lang = this.langService.language();
-    if (!country) return '';
-    if (lang === 'eng') return country.name?.official;
-    return country.translations?.[lang]?.official ?? country.name?.official;
-  });
 
-  translatedName = computed(() => {
-    const country = this.country();
-    const lang = this.langService.language();
-    if (!country) return '';
-    if (lang === 'eng') return country.name?.common;
-    return country.translations?.[lang]?.common ?? country.name?.common;
-  });
 
   ngOnInit() {
     this.route.paramMap
