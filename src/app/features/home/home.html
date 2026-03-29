@@ -89,7 +89,6 @@
         <td mat-cell *matCellDef="let country">
 
           <div class="country-name">
-          <button mat-button color="primary" class="mobile"><mat-icon class="mat-18">touch_app</mat-icon></button>
             {{ country | translateCountry : langService.language() }}
           </div>
 
