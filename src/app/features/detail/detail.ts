@@ -10,11 +10,12 @@ import { Country } from '../../core/models/country.model';
 import { LANGUAGES } from '../../core/config/languages.config';
 import { UI_TRANSLATIONS } from '../../core/config/ui.translations.config';
 import { TranslateCountryPipe } from '../../shared/pipes/translate-country.pipe';
+import { TranslateRegionPipe } from '../../shared/pipes/translate-region.pipe';
 
 @Component({
   selector: 'app-detail',
   standalone: true,
-  imports: [RouterModule, MATERIAL_MODULES, KeyValuePipe, DecimalPipe, TranslateCountryPipe],
+  imports: [RouterModule, MATERIAL_MODULES, KeyValuePipe, DecimalPipe, TranslateCountryPipe, TranslateRegionPipe],
   templateUrl: './detail.html',
   styleUrl: './detail.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
