@@ -14,15 +14,15 @@
 
   } @else {
 
-    @if (country(); as country) {
+    @if (country(); as countryData) {
 
       <div style="display:flex; gap:10px; align-items:flex-start; flex-wrap:wrap;">
 
         <!-- Bandeira -->
         <div class="country-detail">
           <img 
-            [src]="country.flags.svg" 
-            [alt]="country.name.common" 
+            [src]="countryData.flags.svg" 
+            [alt]="countryData.name.common" 
             width="300" 
             style="border-radius:8px;" 
           />
@@ -31,42 +31,42 @@
         <!-- Informações -->
         <div style="max-width:600px;" class="country-detail">
 
-          <h2>{{ country | translateCountry : langService.language() }}</h2>
+          <h2>{{ countryData | translateCountry : langService.language() }}</h2>
 
           <p>
             <strong>{{ ui().officialName }}:</strong> 
-            {{ country | translateCountry : langService.language() : 'official' }}
+            {{ countryData | translateCountry : langService.language() : 'official' }}
           </p>
 
           <p>
             <strong>{{ ui().capital }}:</strong> 
-            {{ country.capital?.join(', ') || '—' }}
+            {{ countryData.capital?.join(', ') || '—' }}
           </p>
 
           <p>
             <strong>{{ ui().population }}:</strong> 
-            {{ country.population | number }}
+            {{ countryData.population | number }}
           </p>
 
           <p>
             <strong>{{ ui().region }}:</strong> 
-            {{ country.region | translateRegion : langService.language() }}
+            {{ countryData.region | translateRegion : langService.language() }}
           </p>
 
           <p>
             <strong>{{ ui().subregion }}:</strong> 
-            {{ country.subregion }}
+            {{ countryData.subregion }}
           </p>
 
           <p>
             <strong>{{ ui().area }}:</strong> 
-            {{ country.area | number:'1.0-0' }} km²
+            {{ countryData.area | number:'1.0-0' }} km²
           </p>
 
           <!-- Idiomas -->
           <p>
             <strong>{{ ui().languages }}:</strong>
-            @if (country.languages; as languages) {
+            @if (countryData.languages; as languages) {
               @for (lang of languages | keyvalue; track lang.key) {
                 <span>{{ lang.value }} </span>
               }
@@ -76,7 +76,7 @@
           <!-- Moedas -->
           <p>
             <strong>{{ ui().currencies }}:</strong>
-            @if (country.currencies; as currencies) {
+            @if (countryData.currencies; as currencies) {
               @for (currency of currencies | keyvalue; track currency.key) {
                 <span>
                   {{ currency.value.name }} ({{ currency.value.symbol }})
@@ -89,9 +89,9 @@
           <div style="margin-top:20px;">
             <h3>{{ ui().borders }}</h3>
           
-            @if (country.borders?.length) {
+            @if (countryData.borders?.length) {
               <mat-chip-set>
-                @for (border of country.borders; track border) {
+                @for (border of countryData.borders; track border) {
                   <button 
                     mat-raised-button 
                     (click)="goToBorder(border)" 
