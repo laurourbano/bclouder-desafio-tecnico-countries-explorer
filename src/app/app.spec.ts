@@ -1,10 +1,24 @@
 import { TestBed } from '@angular/core/testing';
 import { App } from './app';
+import { LanguageService } from './core/services/language-service';
+import { ThemeService } from './core/services/theme.service';
 
 describe('App', () => {
   beforeEach(async () => {
+    const languageServiceMock = {
+      language: () => 'eng'
+    };
+    const themeServiceMock = {
+      theme: () => 'light',
+      toggleTheme: () => {}
+    };
+
     await TestBed.configureTestingModule({
       imports: [App],
+      providers: [
+        { provide: LanguageService, useValue: languageServiceMock },
+        { provide: ThemeService, useValue: themeServiceMock }
+      ]
     }).compileComponents();
   });
 
@@ -17,7 +31,8 @@ describe('App', () => {
   it('should render title', async () => {
     const fixture = TestBed.createComponent(App);
     await fixture.whenStable();
+    fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, bclouder-desafio-tecnico-countries-explorer');
+    expect(compiled.querySelector('.app-title')?.textContent).toContain('Country Explorer');
   });
 });
