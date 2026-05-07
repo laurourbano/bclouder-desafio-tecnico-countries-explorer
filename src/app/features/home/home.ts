@@ -1,4 +1,6 @@
+import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
 import { Component, computed, inject, signal, ViewChild, ChangeDetectionStrategy, DestroyRef, OnInit } from '@angular/core';
+import { Title, Meta } from '@angular/platform-browser';
 import { CountryService } from '../../core/services/country-service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
@@ -30,7 +32,19 @@ import { TranslateRegionPipe } from '../../shared/pipes/translate-region.pipe';
   ],
   templateUrl: './home.html',
   styleUrl: './home.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('listAnimation', [
+      transition('* => *', [
+        query(':enter', [
+          style({ opacity: 0, transform: 'translateY(10px)' }),
+          stagger(30, [
+            animate('300ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+          ])
+        ], { optional: true })
+      ])
+    ])
+  ]
 })
 export class Home implements OnInit {
 
@@ -55,6 +69,8 @@ export class Home implements OnInit {
   private toastr = inject(ToastrService);
   private destroyRef = inject(DestroyRef);
   private breakpointObserver = inject(BreakpointObserver);
+  private titleService = inject(Title);
+  private metaService = inject(Meta);
   langService = inject(LanguageService);
 
   ui = computed(() => UI_TRANSLATIONS[this.langService.language()] ?? UI_TRANSLATIONS['eng']);
@@ -87,6 +103,7 @@ export class Home implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   ngOnInit(): void {
+    this.updateMeta();
 
     this.service.getAll()
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -129,7 +146,7 @@ export class Home implements OnInit {
 
         error: () => {
           this.loading.set(false);
-          // Substituido pelo error interceptor nativo
+          // Substituído pelo error interceptor nativo
         }
       });
 
@@ -195,6 +212,12 @@ export class Home implements OnInit {
     }
 
     this.router.navigate(['/countries', code]);
+  }
+
+  private updateMeta(): void {
+    const t = this.ui();
+    this.titleService.setTitle(`${t.appTitle} - ${t.homeTitle || 'Home'}`);
+    this.metaService.updateTag({ name: 'description', content: t.appDescription || 'Explore countries around the world.' });
   }
 
 }

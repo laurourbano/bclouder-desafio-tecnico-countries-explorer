@@ -8,169 +8,115 @@
   </div>
 
   @if (loading()) {
-    <div class="spinner">
-      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-
+    <div class="skeleton-container">
+      @for (i of [1,2,3,4,5]; track i) {
+        <div class="skeleton-row"></div>
+      }
     </div>
   }
 
   <div class="controls">
-
     <mat-form-field appearance="outline" class="search-field">
       <mat-label>{{ ui().searchPlaceholder }}</mat-label>
-
       <mat-icon matPrefix>search</mat-icon>
-
-      <input matInput [formControl]="searchControl" [placeholder]="ui().searchPlaceholder" autocomplete="off">
-
+      <input matInput [formControl]="searchControl" [placeholder]="ui().searchPlaceholder" autocomplete="off" aria-label="Search countries">
       @if (searchControl.value) {
-      <button matSuffix mat-icon-button (click)="searchControl.setValue('')">
+      <button matSuffix mat-icon-button (click)="searchControl.setValue('')" aria-label="Clear search">
         <mat-icon>close</mat-icon>
       </button>
       }
-
     </mat-form-field>
 
-
     <mat-form-field appearance="outline" class="region-field" >
-
       <mat-label>{{ ui().regionLabel }}</mat-label>
-
-      <mat-select [formControl]="regionControl">
-
+      <mat-select [formControl]="regionControl" aria-label="Filter by region">
         <mat-option value="">{{ ui().allRegions }}</mat-option>
-
         @for (regiao of regions(); track regiao) {
         <mat-option [value]="regiao.value">{{regiao.label}}</mat-option>
         }
-
       </mat-select>
-
     </mat-form-field>
 
-
     @if (searchControl.value || regionControl.value) {
-
     <button mat-stroked-button color="warn" (click)="clearFilters()" class="clear-btn">
       <mat-icon>filter_alt_off</mat-icon>
       {{ ui().clearFilters }}
     </button>
-
     }
-
   </div>
 
-
-
-  <div class="table-wrapper mat-elevation-z2">
-
+  <div class="table-wrapper mat-elevation-z2" [@listAnimation]="dataSource.data.length">
     <table mat-table [dataSource]="dataSource" matSort>
-
-
       <ng-container matColumnDef="flag">
-
         <th mat-header-cell *matHeaderCellDef></th>
-
         <td mat-cell *matCellDef="let country" class="flag-cell">
-
-          <img [src]="country.flags.svg || country.flags.png" [alt]="'Flag of ' + country.name.common" class="flag-img" loading="lazy">
-
+          <img [src]="country.flags.svg || country.flags.png" [alt]="country.name.common" [title]="country.name.common" class="flag-img" loading="lazy" width="40" height="25">
         </td>
-
       </ng-container>
 
-
       <ng-container matColumnDef="name">
-
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ ui().tableCountry }}
         </th>
-
         <td mat-cell *matCellDef="let country">
-
           <div class="country-name">
             {{ country | translateCountry : langService.language() }}
           </div>
-
           <div class="country-official">
             {{ country | translateCountry : langService.language() : 'official' }}
           </div>
-
-
         </td>
-
       </ng-container>
 
-
       <ng-container matColumnDef="capital">
-
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ ui().tableCapital }}
         </th>
-
         <td mat-cell *matCellDef="let country">
           {{ country.capital ?? '—' }}
         </td>
-
       </ng-container>
 
-
       <ng-container matColumnDef="region" class="mobile-hide">
-
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ ui().tableRegion }}
         </th>
-
         <td mat-cell *matCellDef="let country">
-
           <span class="region-chip" [attr.data-region]="country.region">
             {{ country.region | translateRegion: langService.language() }}
           </span>
-
         </td>
-
       </ng-container>
 
-
       <ng-container matColumnDef="population" >
-
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ ui().tablePopulation }}
         </th>
-
         <td mat-cell *matCellDef="let country" class="pop-cell">
           {{ country.population | number }}
         </td>
-
       </ng-container>
-
 
       <ng-container matColumnDef="actions">
-
         <th mat-header-cell *matHeaderCellDef></th>
-
-  <td mat-cell *matCellDef="let country">
-
-    <button
-      mat-icon-button
-      color="primary"
-      (click)="openDetail(country); $event.stopPropagation()"
-    >
-      <mat-icon>search</mat-icon>
-    </button>
-
-  </td>
-
+        <td mat-cell *matCellDef="let country">
+          <button
+            mat-icon-button
+            color="primary"
+            (click)="openDetail(country); $event.stopPropagation()"
+            aria-label="View country details"
+          >
+            <mat-icon>search</mat-icon>
+          </button>
+        </td>
       </ng-container>
 
-
       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-
-  <tr
-    mat-row
-    *matRowDef="let row; columns: displayedColumns"
-    class="table-row"
-  (click)="openDetail(row)"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        class="table-row"
+        (click)="openDetail(row)"></tr>
 
       <tr class="mat-row" *matNoDataRow>
 

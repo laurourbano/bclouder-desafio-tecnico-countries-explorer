@@ -33,6 +33,9 @@ export const UI_TRANSLATIONS: Record<
     europe: string;
     oceania: string;
     antarctic: string;
+    appTitle: string;
+    homeTitle: string;
+    appDescription: string;
   }
 > = {
   eng: {
@@ -65,7 +68,10 @@ export const UI_TRANSLATIONS: Record<
     asia: 'Asia',
     europe: 'Europe',
     oceania: 'Oceania',
-    antarctic: 'Antarctic'
+    antarctic: 'Antarctic',
+    appTitle: 'Country Explorer',
+    homeTitle: 'Home',
+    appDescription: 'Explore countries around the world with detailed information.'
   },
 
   por: {
@@ -98,7 +104,10 @@ export const UI_TRANSLATIONS: Record<
     asia: 'Ásia',
     europe: 'Europa',
     oceania: 'Oceania',
-    antarctic: 'Antártica'
+    antarctic: 'Antártica',
+    appTitle: 'Country Explorer',
+    homeTitle: 'Início',
+    appDescription: 'Explore países ao redor do mundo com informações detalhadas.'
   },
 
   spa: {
@@ -131,7 +140,10 @@ export const UI_TRANSLATIONS: Record<
     asia: 'Asia',
     europe: 'Europa',
     oceania: 'Oceanía',
-    antarctic: 'Antártida'
+    antarctic: 'Antártida',
+    appTitle: 'Country Explorer',
+    homeTitle: 'Inicio',
+    appDescription: 'Explora países de todo el mundo con información detallada.'
   },
 
   fra: {
@@ -164,7 +176,10 @@ export const UI_TRANSLATIONS: Record<
     asia: 'Asie',
     europe: 'Europe',
     oceania: 'Océanie',
-    antarctic: 'Antarctique'
+    antarctic: 'Antarctique',
+    appTitle: 'Country Explorer',
+    homeTitle: 'Accueil',
+    appDescription: 'Explorez les pays du monde entier com des informations détaillées.'
   },
 
   deu: {
@@ -197,6 +212,9 @@ export const UI_TRANSLATIONS: Record<
     asia: 'Asien',
     europe: 'Europa',
     oceania: 'Ozeanien',
-    antarctic: 'Antarktis'
+    antarctic: 'Antarktis',
+    appTitle: 'Country Explorer',
+    homeTitle: 'Startseite',
+    appDescription: 'Entdecken Sie Länder auf der ganzen Welt mit detaillierten Informationen.'
   }
 };
