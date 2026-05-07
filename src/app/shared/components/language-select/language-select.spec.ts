@@ -46,4 +46,27 @@ describe('LanguageSelect', () => {
     component.setLanguage('spa');
     expect(languageSignal()).toBe('spa');
   });
+
+  it('should render the current language in the button', () => {
+    const button = fixture.nativeElement.querySelector('button');
+    expect(button.textContent).toContain('English');
+  });
+
+  it('should list all available languages in the menu', () => {
+    // Abrir o menu (simular clique no botão)
+    const button = fixture.nativeElement.querySelector('button');
+    button.click();
+    fixture.detectChanges();
+
+    // Como o menu do Angular Material é renderizado fora do componente (Overlay), 
+    // precisamos procurar no documento.
+    const menuItems = document.querySelectorAll('.mat-mdc-menu-item');
+    // Temos 5 idiomas configurados (eng, por, spa, fra, deu)
+    expect(menuItems.length).toBe(5);
+    
+    const labels = Array.from(menuItems).map(item => item.textContent?.trim() || '');
+    expect(labels.some(l => l.includes('English'))).toBeTrue();
+    expect(labels.some(l => l.includes('Português'))).toBeTrue();
+    expect(labels.some(l => l.includes('Español'))).toBeTrue();
+  });
 });

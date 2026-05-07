@@ -112,4 +112,30 @@ describe('CountryService', () => {
       req.flush(mockApiCountries);
     });
   });
+
+  describe('Error handling', () => {
+    it('should handle 404 error', () => {
+      service.byCca3('INVALID').subscribe({
+        next: () => fail('should have failed with 404 error'),
+        error: (error) => {
+          expect(error).toBeTruthy();
+        }
+      });
+
+      const req = httpMock.expectOne(`${apiUrl}/alpha/INVALID`);
+      req.flush('Not Found', { status: 404, statusText: 'Not Found' });
+    });
+
+    it('should handle 500 error', () => {
+      service.getAll().subscribe({
+        next: () => fail('should have failed with 500 error'),
+        error: (error) => {
+          expect(error).toBeTruthy();
+        }
+      });
+
+      const req = httpMock.expectOne(req => req.url.startsWith(`${apiUrl}/all`));
+      req.flush('Server Error', { status: 500, statusText: 'Internal Server Error' });
+    });
+  });
 });

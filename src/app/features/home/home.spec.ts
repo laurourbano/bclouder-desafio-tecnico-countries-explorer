@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Country } from '../../core/models/country.model';
+import { LanguageService } from '../../core/services/language-service';
 
 
 describe('Home', () => {
@@ -62,6 +63,11 @@ describe('Home', () => {
     fixture = TestBed.createComponent(Home);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
+    
+    // Garantir que o idioma está em inglês para os testes
+    const langService = TestBed.inject(LanguageService) as LanguageService;
+    langService.setLanguage('eng');
+    
     fixture.detectChanges();
   });
 
@@ -85,14 +91,13 @@ describe('Home', () => {
   it('should filter countries by search text', (done) => {
     component.searchControl.setValue('Brazil');
     
-    // Using setTimeout to handle debounceTime(300) in a simple way for junior level, 
-    // or we could use fakeAsync/tick. Let's use fakeAsync for "ideal coverage" style.
+    // Usando setTimeout para lidar com o debounceTime(300)
     setTimeout(() => {
       fixture.detectChanges();
       expect(component.dataSource.filteredData.length).toBe(1);
       expect(component.dataSource.filteredData[0].cca3).toBe('BRA');
       done();
-    }, 350);
+    }, 400);
   });
 
   it('should filter countries by region', () => {
@@ -122,8 +127,7 @@ describe('Home', () => {
 
   it('should update columns for mobile view', () => {
     breakpointObserverSpy.observe.and.returnValue(of({ matches: true }));
-    // Re-iniciar para pegar o novo valor do breakpoint (ou disparar manualmente se o observer permitir)
-    // No nosso ngOnInit o subscribe acontece no início.
+    // Re-iniciar para pegar o novo valor do breakpoint
     component.ngOnInit();
     expect(component.displayedColumns).toEqual(component.mobileColumns);
   });
@@ -153,7 +157,8 @@ describe('Home', () => {
     component.rawRegions.set(['Americas', 'Europe']);
     const regions = component.regions();
     expect(regions.length).toBe(2);
-    expect(regions[0].label).toBe('Americas'); // Assuming eng default
+    // Americas em inglês é Americas. Em português seria Américas.
+    expect(regions.find(r => r.value === 'Americas')?.label).toBe('Americas');
   });
 
   it('should filter correctly in filterPredicate', () => {

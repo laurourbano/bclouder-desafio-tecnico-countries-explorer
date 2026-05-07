@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Detail } from './detail';
 import { CountryService } from '../../core/services/country-service';
 import { ActivatedRoute, Router, RouterModule, convertToParamMap } from '@angular/router';
-import { of, throwError, BehaviorSubject } from 'rxjs';
+import { of, throwError, Subject, BehaviorSubject } from 'rxjs';
 import { Country } from '../../core/models/country.model';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { LanguageService } from '../../core/services/language-service';
@@ -62,21 +62,45 @@ describe('Detail', () => {
     fixture = TestBed.createComponent(Detail);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    await fixture.whenStable();
   });
 
-  it('should create and load country details', () => {
+  it('should create and load country details', async () => {
+    await fixture.whenStable();
     expect(component).toBeTruthy();
     expect(countryServiceSpy.byCca3).toHaveBeenCalledWith('BRA');
     expect(component.country()).toEqual(mockCountry as Country);
     expect(component.loading()).toBe(false);
   });
 
+  it('should show loading state while fetching country', () => {
+    // Para testar o loading, precisamos de um observable que não emita imediatamente
+    const loadingSubject = new Subject<any>();
+    countryServiceSpy.byCca3.and.returnValue(loadingSubject.asObservable());
+    
+    // Criar novo componente para garantir o estado inicial
+    const loadingFixture = TestBed.createComponent(Detail);
+    loadingFixture.detectChanges();
+    
+    expect(loadingFixture.componentInstance.loading()).toBe(true);
+    
+    loadingSubject.next(mockCountry);
+    loadingFixture.detectChanges();
+    
+    expect(loadingFixture.componentInstance.loading()).toBe(false);
+    expect(loadingFixture.componentInstance.country()).toEqual(mockCountry as Country);
+  });
+
   it('should handle error when loading country', () => {
     countryServiceSpy.byCca3.and.returnValue(throwError(() => new Error('Not Found')));
-    component.ngOnInit();
-    expect(component.error()).toBe('Não foi possível carregar os dados do país.');
-    expect(component.loading()).toBe(false);
+    
+    // Como o switchMap no ngOnInit já disparou no detectChanges, 
+    // precisamos resetar ou disparar uma mudança no paramMap
+    // Ou simplesmente criar um novo fixture
+    const errorFixture = TestBed.createComponent(Detail);
+    errorFixture.detectChanges();
+    
+    expect(errorFixture.componentInstance.error()).toBe('Não foi possível carregar os dados do país.');
+    expect(errorFixture.componentInstance.loading()).toBe(false);
   });
 
   it('should navigate to border country', () => {
@@ -90,6 +114,9 @@ describe('Detail', () => {
   });
 
   it('should update UI translations when language changes', () => {
+    // Garantir que começamos em eng
+    component['langService'].setLanguage('eng');
+    fixture.detectChanges();
     expect(component.ui().back).toBe('Back');
 
     component['langService'].setLanguage('por');
