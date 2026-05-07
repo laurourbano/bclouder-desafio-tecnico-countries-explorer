@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LanguageSelect } from './language-select';
 import { LanguageService } from '../../../core/services/language-service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { vi } from 'vitest';
+
 import { signal } from '@angular/core';
 
 describe('LanguageSelect', () => {
@@ -11,9 +11,10 @@ describe('LanguageSelect', () => {
   let languageSignal = signal('eng');
 
   beforeEach(async () => {
+    languageSignal.set('eng');
     const languageServiceMock = {
       language: languageSignal,
-      setLanguage: vi.fn().mockImplementation((code) => languageSignal.set(code))
+      setLanguage: jasmine.createSpy('setLanguage').and.callFake((code: string) => languageSignal.set(code))
     };
 
     await TestBed.configureTestingModule({

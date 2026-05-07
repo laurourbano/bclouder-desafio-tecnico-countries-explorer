@@ -1,0 +1,101 @@
+
+> bclouder-desafio-tecnico-countries-explorer@0.0.0 test
+> ng test --watch=false --browsers=ChromeHeadless
+
+- Generating browser application bundles (phase: setup)...
+[32m√[39m Browser application bundle generation complete.
+[32m07 05 2026 11:17:20.066:INFO [karma-server]: [39mKarma v6.4.4 server started at http://localhost:9876/
+[32m07 05 2026 11:17:20.068:INFO [launcher]: [39mLaunching browsers ChromeHeadless with concurrency unlimited
+[32m07 05 2026 11:17:20.085:INFO [launcher]: [39mStarting browser ChromeHeadless
+[32m07 05 2026 11:17:21.259:INFO [Chrome Headless 147.0.0.0 (Windows 10)]: [39mConnected on socket 8AZcIVj2eExtbG1xAAAB with id 49859499
+Chrome Headless 147.0.0.0 (Windows 10): Executed 0 of 57[32m SUCCESS[39m (0 secs / 0 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 1 of 57[32m SUCCESS[39m (0 secs / 0.09 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 2 of 57[32m SUCCESS[39m (0 secs / 0.103 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 3 of 57[32m SUCCESS[39m (0 secs / 0.111 secs)
+[33m07 05 2026 11:17:21.715:WARN [web-server]: [39m404: /_karma_webpack_/url
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 4 of 57[32m SUCCESS[39m (0 secs / 0.152 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 5 of 57[32m SUCCESS[39m (0 secs / 0.16 secs)
+[33m07 05 2026 11:17:21.734:WARN [web-server]: [39m404: /_karma_webpack_/url
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 6 of 57[32m SUCCESS[39m (0 secs / 0.169 secs)
+[1A[2KERROR: [36m'Erro ao buscar país:', Error: Not Found
+Error: Not Found
+    at errorFactory (http://localhost:9876/_karma_webpack_/webpack:/src/app/features/detail/detail.spec.ts:76:63)
+    at Observable._subscribe (http://localhost:9876/_karma_webpack_/webpack:/node_modules/rxjs/dist/esm/internal/observable/throwError.js:5:51)
+    at Observable._trySubscribe (http://localhost:9876/_karma_webpack_/webpack:/node_modules/rxjs/dist/esm/internal/Observable.js:37:25)
+    at cb (http://localhost:9876/_karma_webpack_/webpack:/node_modules/rxjs/dist/esm/internal/Observable.js:31:30)
+    at errorContext (http://localhost:9876/_karma_webpack_/webpack:/node_modules/rxjs/dist/esm/internal/util/errorContext.js:19:9)
+    at Observable.subscribe (http://localhost:9876/_karma_webpack_/webpack:/node_modules/rxjs/dist/esm/internal/Observable.js:22:21)
+    at onNext (http://localhost:9876/_karma_webpack_/webpack:/node_modules/rxjs/dist/esm/internal/operators/switchMap.js:14:51)
+    at OperatorSubscriber._next (http://localhost:9876/_karma_webpack_/webpack:/node_modules/rxjs/dist/esm/internal/operators/OperatorSubscriber.js:13:21)
+    at OperatorSubscriber.next (http://localhost:9876/_karma_webpack_/webpack:/node_modules/rxjs/dist/esm/internal/Subscriber.js:31:18)
+    at BehaviorSubject._subscribe (http://localhost:9876/_karma_webpack_/webpack:/node_modules/rxjs/dist/esm/internal/BehaviorSubject.js:12:44)[39m
+Chrome Headless 147.0.0.0 (Windows 10): Executed 6 of 57[32m SUCCESS[39m (0 secs / 0.169 secs)
+ERROR: 'Erro ao buscar país:', Error: Not Found
+Error: Not Found
+    at errorFactory (http://localhost:9876/_karma_webpack_/webpack:/src/app/features/detail/detail.spec.ts:76:63)
+    at Observable._subscribe (http://localhost:9876/_karma_webpack_/webpack:/node_modules/rxjs/dist/esm/internal/observable/throwError.js:5:51)
+    at Observable._trySubscribe (http://localhost:9876/_karma_webpack_/webpack:/node_modules/rxjs/dist/esm/internal/Observable.js:37:25)
+    at cb (http://localhost:9876/_karma_webpack_/webpack:/node_modules/rxjs/dist/esm/internal/Observable.js:31:30)
+    at errorContext (http://localhost:9876/_karma_webpack_/webpack:/node_modules/rxjs/dist/esm/internal/util/errorContext.js:19:9)
+    at Observable.subscribe (http://localhost:9876/_karma_webpack_/webpack:/node_modules/rxjs/dist/esm/internal/Observable.js:22:21)
+    at onNext (http://localhost:9876/_karma_webpack_/webpack:/node_modules/rxjs/dist/esm/internal/operators/switchMap.js:14:51)
+    at OperatorSubscriber._next (http://localhost:9876/_karma_webpack_/webpack:/node_modules/rxjs/dist/esm/internal/operators/OperatorSubscriber.js:13:21)
+    at OperatorSubscriber.next (http://localhost:9876/_karma_webpack_/webpack:/node_modules/rxjs/dist/esm/internal/Subscriber.js:31:18)
+    at BehaviorSubject._subscribe (http://localhost:9876/_karma_webpack_/webpack:/node_modules/rxjs/dist/esm/internal/BehaviorSubject.js:12:44)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 7 of 57[32m SUCCESS[39m (0 secs / 1.073 secs)
+[33m07 05 2026 11:17:22.650:WARN [web-server]: [39m404: /_karma_webpack_/url
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 8 of 57[32m SUCCESS[39m (0 secs / 1.081 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 9 of 57[32m SUCCESS[39m (0 secs / 1.082 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 10 of 57[32m SUCCESS[39m (0 secs / 1.083 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 11 of 57[32m SUCCESS[39m (0 secs / 1.083 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 12 of 57[32m SUCCESS[39m (0 secs / 1.083 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 13 of 57[32m SUCCESS[39m (0 secs / 1.086 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 14 of 57[32m SUCCESS[39m (0 secs / 1.087 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 15 of 57[32m SUCCESS[39m (0 secs / 1.088 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 16 of 57[32m SUCCESS[39m (0 secs / 1.089 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 17 of 57[32m SUCCESS[39m (0 secs / 1.09 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 18 of 57[32m SUCCESS[39m (0 secs / 1.091 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 19 of 57[32m SUCCESS[39m (0 secs / 1.092 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 20 of 57[32m SUCCESS[39m (0 secs / 1.093 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 21 of 57[32m SUCCESS[39m (0 secs / 1.094 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 22 of 57[32m SUCCESS[39m (0 secs / 1.095 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 23 of 57[32m SUCCESS[39m (0 secs / 1.097 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 24 of 57[32m SUCCESS[39m (0 secs / 1.098 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 25 of 57[32m SUCCESS[39m (0 secs / 1.099 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 26 of 57[32m SUCCESS[39m (0 secs / 1.1 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 27 of 57[32m SUCCESS[39m (0 secs / 1.101 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 28 of 57[32m SUCCESS[39m (0 secs / 1.102 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 29 of 57[32m SUCCESS[39m (0 secs / 1.102 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 30 of 57[32m SUCCESS[39m (0 secs / 1.102 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 31 of 57[32m SUCCESS[39m (0 secs / 1.102 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 32 of 57[32m SUCCESS[39m (0 secs / 1.102 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 33 of 57[32m SUCCESS[39m (0 secs / 1.102 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 34 of 57[32m SUCCESS[39m (0 secs / 1.102 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 35 of 57[32m SUCCESS[39m (0 secs / 1.102 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 36 of 57[32m SUCCESS[39m (0 secs / 1.227 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 37 of 57[32m SUCCESS[39m (0 secs / 1.256 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 38 of 57[32m SUCCESS[39m (0 secs / 1.282 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 39 of 57[32m SUCCESS[39m (0 secs / 1.331 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 40 of 57[32m SUCCESS[39m (0 secs / 1.356 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 41 of 57[32m SUCCESS[39m (0 secs / 1.377 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 42 of 57[32m SUCCESS[39m (0 secs / 1.397 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 43 of 57[32m SUCCESS[39m (0 secs / 1.419 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 44 of 57[32m SUCCESS[39m (0 secs / 1.441 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 45 of 57[32m SUCCESS[39m (0 secs / 1.479 secs)
+[33m07 05 2026 11:17:23.104:WARN [web-server]: [39m404: /_karma_webpack_/br-svg
+[33m07 05 2026 11:17:23.106:WARN [web-server]: [39m404: /_karma_webpack_/de-svg
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 46 of 57[32m SUCCESS[39m (0 secs / 1.858 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 47 of 57[32m SUCCESS[39m (0 secs / 1.88 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 48 of 57[32m SUCCESS[39m (0 secs / 1.88 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 49 of 57[32m SUCCESS[39m (0 secs / 1.88 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 50 of 57[32m SUCCESS[39m (0 secs / 1.88 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 51 of 57[32m SUCCESS[39m (0 secs / 1.88 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 52 of 57[32m SUCCESS[39m (0 secs / 1.88 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 53 of 57[32m SUCCESS[39m (0 secs / 1.881 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 54 of 57[32m SUCCESS[39m (0 secs / 1.881 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 55 of 57[32m SUCCESS[39m (0 secs / 1.881 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 56 of 57[32m SUCCESS[39m (0 secs / 1.896 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 57 of 57[32m SUCCESS[39m (0 secs / 1.9 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 57 of 57[32m SUCCESS[39m (1.949 secs / 1.9 secs)
+[32mTOTAL: 57 SUCCESS[39m
+[32m√[39m Browser application bundle generation complete.

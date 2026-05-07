@@ -1,0 +1,131 @@
+
+> bclouder-desafio-tecnico-countries-explorer@0.0.0 test
+> ng test --watch=false --browsers=ChromeHeadless
+
+- Generating browser application bundles (phase: setup)...
+[32m√[39m Browser application bundle generation complete.
+[32m07 05 2026 11:16:39.017:INFO [karma-server]: [39mKarma v6.4.4 server started at http://localhost:9876/
+[32m07 05 2026 11:16:39.019:INFO [launcher]: [39mLaunching browsers ChromeHeadless with concurrency unlimited
+[32m07 05 2026 11:16:39.035:INFO [launcher]: [39mStarting browser ChromeHeadless
+[32m07 05 2026 11:16:40.393:INFO [Chrome Headless 147.0.0.0 (Windows 10)]: [39mConnected on socket o-vvhPuAFPn0P_SOAAAB with id 83884264
+Chrome Headless 147.0.0.0 (Windows 10): Executed 0 of 57[32m SUCCESS[39m (0 secs / 0 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 1 of 57[32m SUCCESS[39m (0 secs / 0.011 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 2 of 57[32m SUCCESS[39m (0 secs / 0.015 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 3 of 57[32m SUCCESS[39m (0 secs / 0.017 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 4 of 57[32m SUCCESS[39m (0 secs / 0.019 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 5 of 57[32m SUCCESS[39m (0 secs / 0.021 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 6 of 57[32m SUCCESS[39m (0 secs / 0.023 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 7 of 57[32m SUCCESS[39m (0 secs / 0.025 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 8 of 57[32m SUCCESS[39m (0 secs / 0.026 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 9 of 57[32m SUCCESS[39m (0 secs / 0.027 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 10 of 57[32m SUCCESS[39m (0 secs / 0.028 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 11 of 57[32m SUCCESS[39m (0 secs / 0.029 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 12 of 57[32m SUCCESS[39m (0 secs / 0.03 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 13 of 57[32m SUCCESS[39m (0 secs / 0.03 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 14 of 57[32m SUCCESS[39m (0 secs / 0.03 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 15 of 57[32m SUCCESS[39m (0 secs / 0.03 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 16 of 57[32m SUCCESS[39m (0 secs / 0.032 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 17 of 57[32m SUCCESS[39m (0 secs / 0.033 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 18 of 57[32m SUCCESS[39m (0 secs / 0.034 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 19 of 57[32m SUCCESS[39m (0 secs / 0.035 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 20 of 57[32m SUCCESS[39m (0 secs / 0.035 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 21 of 57[32m SUCCESS[39m (0 secs / 0.035 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 22 of 57[32m SUCCESS[39m (0 secs / 0.036 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 23 of 57[32m SUCCESS[39m (0 secs / 0.036 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 24 of 57[32m SUCCESS[39m (0 secs / 0.036 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 25 of 57[32m SUCCESS[39m (0 secs / 0.036 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 26 of 57[32m SUCCESS[39m (0 secs / 0.036 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 27 of 57[32m SUCCESS[39m (0 secs / 0.036 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 28 of 57[32m SUCCESS[39m (0 secs / 0.036 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 29 of 57[32m SUCCESS[39m (0 secs / 0.106 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 30 of 57[32m SUCCESS[39m (0 secs / 0.118 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 31 of 57[32m SUCCESS[39m (0 secs / 0.126 secs)
+[1A[2K[31mChrome Headless 147.0.0.0 (Windows 10) Detail should navigate to border country FAILED[39m
+	Error: Cannot configure the test module when the test module has already been instantiated. Make sure you are not using `inject` before `TestBed.configureTestingModule`.
+	    at TestBedImpl.assertNotInstantiated (node_modules/@angular/core/fesm2022/testing.mjs:1498:13)
+	    at TestBedImpl.configureTestingModule (node_modules/@angular/core/fesm2022/testing.mjs:1390:10)
+	    at TestBedImpl.configureTestingModule (node_modules/@angular/core/fesm2022/testing.mjs:1273:33)
+	    at UserContext.<anonymous> (src/app/features/detail/detail.spec.ts:51:19)
+	    at Generator.next (<anonymous>)
+	    at asyncGeneratorStep (node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js:3:1)
+	    at _next (node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js:17:1)
+	    at node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js:22:1
+	    at new Promise (<anonymous>)
+	    at UserContext.<anonymous> (node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js:14:1)
+Chrome Headless 147.0.0.0 (Windows 10): Executed 32 of 57[31m (1 FAILED)[39m (0 secs / 1.036 secs)
+[1A[2K[31mChrome Headless 147.0.0.0 (Windows 10) Detail should handle error when loading country FAILED[39m
+	Error: Cannot configure the test module when the test module has already been instantiated. Make sure you are not using `inject` before `TestBed.configureTestingModule`.
+	    at TestBedImpl.assertNotInstantiated (node_modules/@angular/core/fesm2022/testing.mjs:1498:13)
+	    at TestBedImpl.configureTestingModule (node_modules/@angular/core/fesm2022/testing.mjs:1390:10)
+	    at TestBedImpl.configureTestingModule (node_modules/@angular/core/fesm2022/testing.mjs:1273:33)
+	    at UserContext.<anonymous> (src/app/features/detail/detail.spec.ts:51:19)
+	    at Generator.next (<anonymous>)
+	    at asyncGeneratorStep (node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js:3:1)
+	    at _next (node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js:17:1)
+	    at node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js:22:1
+	    at new Promise (<anonymous>)
+	    at UserContext.<anonymous> (node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js:14:1)
+Chrome Headless 147.0.0.0 (Windows 10): Executed 33 of 57[31m (2 FAILED)[39m (0 secs / 1.038 secs)
+[1A[2K[31mChrome Headless 147.0.0.0 (Windows 10) Detail should update UI translations when language changes FAILED[39m
+	Error: Cannot configure the test module when the test module has already been instantiated. Make sure you are not using `inject` before `TestBed.configureTestingModule`.
+	    at TestBedImpl.assertNotInstantiated (node_modules/@angular/core/fesm2022/testing.mjs:1498:13)
+	    at TestBedImpl.configureTestingModule (node_modules/@angular/core/fesm2022/testing.mjs:1390:10)
+	    at TestBedImpl.configureTestingModule (node_modules/@angular/core/fesm2022/testing.mjs:1273:33)
+	    at UserContext.<anonymous> (src/app/features/detail/detail.spec.ts:51:19)
+	    at Generator.next (<anonymous>)
+	    at asyncGeneratorStep (node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js:3:1)
+	    at _next (node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js:17:1)
+	    at node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js:22:1
+	    at new Promise (<anonymous>)
+	    at UserContext.<anonymous> (node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js:14:1)
+Chrome Headless 147.0.0.0 (Windows 10): Executed 34 of 57[31m (3 FAILED)[39m (0 secs / 1.04 secs)
+[1A[2K[31mChrome Headless 147.0.0.0 (Windows 10) Detail should navigate back to home FAILED[39m
+	Error: Cannot configure the test module when the test module has already been instantiated. Make sure you are not using `inject` before `TestBed.configureTestingModule`.
+	    at TestBedImpl.assertNotInstantiated (node_modules/@angular/core/fesm2022/testing.mjs:1498:13)
+	    at TestBedImpl.configureTestingModule (node_modules/@angular/core/fesm2022/testing.mjs:1390:10)
+	    at TestBedImpl.configureTestingModule (node_modules/@angular/core/fesm2022/testing.mjs:1273:33)
+	    at UserContext.<anonymous> (src/app/features/detail/detail.spec.ts:51:19)
+	    at Generator.next (<anonymous>)
+	    at asyncGeneratorStep (node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js:3:1)
+	    at _next (node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js:17:1)
+	    at node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js:22:1
+	    at new Promise (<anonymous>)
+	    at UserContext.<anonymous> (node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js:14:1)
+Chrome Headless 147.0.0.0 (Windows 10): Executed 35 of 57[31m (4 FAILED)[39m (0 secs / 1.041 secs)
+[1A[2K[31mChrome Headless 147.0.0.0 (Windows 10) Detail should create and load country details FAILED[39m
+	Error: Cannot configure the test module when the test module has already been instantiated. Make sure you are not using `inject` before `TestBed.configureTestingModule`.
+	    at TestBedImpl.assertNotInstantiated (node_modules/@angular/core/fesm2022/testing.mjs:1498:13)
+	    at TestBedImpl.configureTestingModule (node_modules/@angular/core/fesm2022/testing.mjs:1390:10)
+	    at TestBedImpl.configureTestingModule (node_modules/@angular/core/fesm2022/testing.mjs:1273:33)
+	    at UserContext.<anonymous> (src/app/features/detail/detail.spec.ts:51:19)
+	    at Generator.next (<anonymous>)
+	    at asyncGeneratorStep (node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js:3:1)
+	    at _next (node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js:17:1)
+	    at node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js:22:1
+	    at new Promise (<anonymous>)
+	    at UserContext.<anonymous> (node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js:14:1)
+Chrome Headless 147.0.0.0 (Windows 10): Executed 36 of 57[31m (5 FAILED)[39m (0 secs / 1.043 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 37 of 57[31m (5 FAILED)[39m (0 secs / 1.068 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 38 of 57[31m (5 FAILED)[39m (0 secs / 1.073 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 39 of 57[31m (5 FAILED)[39m (0 secs / 1.2 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 40 of 57[31m (5 FAILED)[39m (0 secs / 1.231 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 41 of 57[31m (5 FAILED)[39m (0 secs / 1.256 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 42 of 57[31m (5 FAILED)[39m (0 secs / 1.303 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 43 of 57[31m (5 FAILED)[39m (0 secs / 1.341 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 44 of 57[31m (5 FAILED)[39m (0 secs / 1.361 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 45 of 57[31m (5 FAILED)[39m (0 secs / 1.38 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 46 of 57[31m (5 FAILED)[39m (0 secs / 1.4 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 47 of 57[31m (5 FAILED)[39m (0 secs / 1.42 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 48 of 57[31m (5 FAILED)[39m (0 secs / 1.798 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 49 of 57[31m (5 FAILED)[39m (0 secs / 1.824 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 50 of 57[31m (5 FAILED)[39m (0 secs / 1.851 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 51 of 57[31m (5 FAILED)[39m (0 secs / 1.851 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 52 of 57[31m (5 FAILED)[39m (0 secs / 1.852 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 53 of 57[31m (5 FAILED)[39m (0 secs / 1.852 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 54 of 57[31m (5 FAILED)[39m (0 secs / 1.852 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 55 of 57[31m (5 FAILED)[39m (0 secs / 1.852 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 56 of 57[31m (5 FAILED)[39m (0 secs / 1.853 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 57 of 57[31m (5 FAILED)[39m (0 secs / 1.853 secs)
+[1A[2KChrome Headless 147.0.0.0 (Windows 10): Executed 57 of 57[31m (5 FAILED)[39m (1.903 secs / 1.853 secs)
+[31mTOTAL: 5 FAILED, 52 SUCCESS[39m
+[32m√[39m Browser application bundle generation complete.

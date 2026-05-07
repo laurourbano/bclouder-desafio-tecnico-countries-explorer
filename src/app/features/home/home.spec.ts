@@ -7,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Country } from '../../core/models/country.model';
-import { vi } from 'vitest';
+
 
 describe('Home', () => {
   let component: Home;
@@ -40,14 +40,14 @@ describe('Home', () => {
 
   beforeEach(async () => {
     countryServiceSpy = {
-      getAll: vi.fn().mockReturnValue(of(mockCountries))
+      getAll: jasmine.createSpy('getAll').and.returnValue(of(mockCountries))
     };
     toastrSpy = {
-      success: vi.fn(),
-      error: vi.fn()
+      success: jasmine.createSpy('success'),
+      error: jasmine.createSpy('error')
     };
     breakpointObserverSpy = {
-      observe: vi.fn().mockReturnValue(of({ matches: false }))
+      observe: jasmine.createSpy('observe').and.returnValue(of({ matches: false }))
     };
     await TestBed.configureTestingModule({
       imports: [Home, NoopAnimationsModule],
@@ -75,22 +75,24 @@ describe('Home', () => {
   });
 
   it('should handle error when loading countries', () => {
-    countryServiceSpy.getAll.mockReturnValue(throwError(() => new Error('API Error')));
+    countryServiceSpy.getAll.and.returnValue(throwError(() => new Error('API Error')));
     // Criamos um novo fixture para testar o OnInit com erro
     const errorFixture = TestBed.createComponent(Home);
     errorFixture.detectChanges();
     expect(errorFixture.componentInstance.loading()).toBe(false);
   });
 
-  it('should filter countries by search text', async () => {
-    vi.useFakeTimers();
+  it('should filter countries by search text', (done) => {
     component.searchControl.setValue('Brazil');
-    vi.advanceTimersByTime(350); // debounceTime(300)
-    fixture.detectChanges();
-
-    expect(component.dataSource.filteredData.length).toBe(1);
-    expect(component.dataSource.filteredData[0].cca3).toBe('BRA');
-    vi.useRealTimers();
+    
+    // Using setTimeout to handle debounceTime(300) in a simple way for junior level, 
+    // or we could use fakeAsync/tick. Let's use fakeAsync for "ideal coverage" style.
+    setTimeout(() => {
+      fixture.detectChanges();
+      expect(component.dataSource.filteredData.length).toBe(1);
+      expect(component.dataSource.filteredData[0].cca3).toBe('BRA');
+      done();
+    }, 350);
   });
 
   it('should filter countries by region', () => {
@@ -111,7 +113,7 @@ describe('Home', () => {
   });
 
   it('should navigate to detail page', () => {
-    const navigateSpy = vi.spyOn(router, 'navigate');
+    const navigateSpy = spyOn(router, 'navigate');
     const country = mockCountries[0] as Country;
     component.openDetail(country);
 
@@ -119,16 +121,57 @@ describe('Home', () => {
   });
 
   it('should update columns for mobile view', () => {
-    breakpointObserverSpy.observe.mockReturnValue(of({ matches: true }));
+    breakpointObserverSpy.observe.and.returnValue(of({ matches: true }));
     // Re-iniciar para pegar o novo valor do breakpoint (ou disparar manualmente se o observer permitir)
     // No nosso ngOnInit o subscribe acontece no início.
     component.ngOnInit();
     expect(component.displayedColumns).toEqual(component.mobileColumns);
   });
   
-  it('should correctly sort data by name', () => {
-    // Definimos acessores de ordenação no ngOnInit
-    const data = component.dataSource.sortingDataAccessor(mockCountries[0] as Country, 'name');
-    expect(data).toBe('Brazil');
+  it('should correctly sort data by various properties', () => {
+    const country = mockCountries[0] as Country;
+    
+    expect(component.dataSource.sortingDataAccessor(country, 'name')).toBe('Brazil');
+    expect(component.dataSource.sortingDataAccessor(country, 'capital')).toBe('Brasília');
+    expect(component.dataSource.sortingDataAccessor(country, 'population')).toBe(200000000);
+    expect(component.dataSource.sortingDataAccessor(country, 'region')).toBe('Americas');
+    expect(component.dataSource.sortingDataAccessor(country, 'cca3')).toBe('BRA');
+  });
+
+  it('should handle sorting for country without capital', () => {
+    const noCapital = { ...mockCountries[0], capital: undefined } as Country;
+    expect(component.dataSource.sortingDataAccessor(noCapital, 'capital')).toBe('');
+  });
+
+  it('should handle openDetail without cca3', () => {
+    const invalidCountry = { ...mockCountries[0], cca3: '' } as Country;
+    component.openDetail(invalidCountry);
+    expect(toastrSpy.error).toHaveBeenCalled();
+  });
+
+  it('should generate region labels correctly', () => {
+    component.rawRegions.set(['Americas', 'Europe']);
+    const regions = component.regions();
+    expect(regions.length).toBe(2);
+    expect(regions[0].label).toBe('Americas'); // Assuming eng default
+  });
+
+  it('should filter correctly in filterPredicate', () => {
+    const country = mockCountries[0] as Country;
+    
+    // Test match both
+    expect(component.dataSource.filterPredicate(country, 'brazil|Americas')).toBe(true);
+    
+    // Test match text only
+    expect(component.dataSource.filterPredicate(country, 'brazil|')).toBe(true);
+    
+    // Test match region only
+    expect(component.dataSource.filterPredicate(country, '|Americas')).toBe(true);
+    
+    // Test no match text
+    expect(component.dataSource.filterPredicate(country, 'germany|Americas')).toBe(false);
+    
+    // Test no match region
+    expect(component.dataSource.filterPredicate(country, 'brazil|Europe')).toBe(false);
   });
 });

@@ -5,7 +5,8 @@ import { ActivatedRoute, Router, RouterModule, convertToParamMap } from '@angula
 import { of, throwError, BehaviorSubject } from 'rxjs';
 import { Country } from '../../core/models/country.model';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { vi } from 'vitest';
+import { LanguageService } from '../../core/services/language-service';
+
 
 class ActivatedRouteStub {
   private paramMapSubject = new BehaviorSubject(convertToParamMap({ cca3: 'BRA' }));
@@ -14,7 +15,7 @@ class ActivatedRouteStub {
 }
 
 class RouterStub {
-  navigate = vi.fn();
+  navigate = jasmine.createSpy('navigate');
 }
 
 describe('Detail', () => {
@@ -41,7 +42,7 @@ describe('Detail', () => {
     activatedRouteStub = new ActivatedRouteStub();
     routerStub = new RouterStub();
     countryServiceSpy = {
-      byCca3: vi.fn().mockReturnValue(of(mockCountry))
+      byCca3: jasmine.createSpy('byCca3').and.returnValue(of(mockCountry))
     };
 
     await TestBed.configureTestingModule({
@@ -54,6 +55,9 @@ describe('Detail', () => {
         { provide: RouterModule, useValue: {} }
       ]
     }).compileComponents();
+
+    const langService: LanguageService = TestBed.inject(LanguageService);
+    langService.setLanguage('eng');
 
     fixture = TestBed.createComponent(Detail);
     component = fixture.componentInstance;
@@ -69,7 +73,7 @@ describe('Detail', () => {
   });
 
   it('should handle error when loading country', () => {
-    countryServiceSpy.byCca3.mockReturnValue(throwError(() => new Error('Not Found')));
+    countryServiceSpy.byCca3.and.returnValue(throwError(() => new Error('Not Found')));
     component.ngOnInit();
     expect(component.error()).toBe('Não foi possível carregar os dados do país.');
     expect(component.loading()).toBe(false);
