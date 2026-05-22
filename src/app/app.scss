@@ -1,6 +1,4 @@
-
-
-:host{
+:host {
   display: flex;
   flex-direction: column;
   height: 100dvh;
@@ -20,16 +18,29 @@ mat-toolbar span {
   flex: 1;
 }
 
-mat-card{
+.toolbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.theme-toggle {
+  margin-left: 8px;
+}
+
+mat-card {
   margin: 0 auto;
   overflow: hidden;
   border: none;
 }
 
-
-mat-divider{
-    flex: 1 1 auto;
-    border: none;
+mat-divider {
+  flex: 1 1 auto;
+  border: none;
 }
 
 span {
@@ -54,11 +65,11 @@ img {
       color: #ffffff;
       font-weight: 500;
     }
-    
+
     .mat-mdc-form-field-flex {
       background: transparent !important;
     }
-    
+
     .mat-mdc-form-field-infix {
       padding-top: 8px !important;
       padding-bottom: 8px !important;
@@ -70,6 +81,5 @@ img {
   }
 }
 
-@media (max-width: 865px){
-
+@media (max-width: 865px) {
 }

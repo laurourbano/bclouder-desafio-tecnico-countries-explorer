@@ -5,6 +5,34 @@
   flex-direction: column;
 }
 
+.back-button-wrapper {
+  margin-bottom: 20px;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.detail-layout {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.detail-info {
+  max-width: 600px;
+}
+
+.borders-section {
+  margin-top: 20px;
+}
+
+.flag-image {
+  border-radius: 8px;
+}
 
 .country-detail {
   display: flex;
@@ -42,7 +70,7 @@ h3 {
   padding: 0 10px;
 }
 
-@media (max-width:865px) {
+@media (max-width: 865px) {
   .page-container {
     margin-top: 6px;
     height: 100dvh;

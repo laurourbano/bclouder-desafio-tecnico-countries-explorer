@@ -1,121 +1,101 @@
 <div class="page-container">
-
-  <div style="margin-bottom:20px;">
-    <button mat-stroked-button (click)="goBack()">
-      ← {{ ui().back }}
-    </button>
+  <div class="back-button-wrapper">
+    <button mat-stroked-button (click)="goBack()">← {{ ui().back }}</button>
   </div>
 
   @if (loading()) {
 
-    <div style="display:flex; justify-content:center; margin-top:40px;">
-      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  <div class="loading-container">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
+
+  } @else { @let countryData = country(); @if (countryData) {
+
+  <div class="detail-layout">
+    <!-- Bandeira -->
+    <div class="country-detail">
+      <img
+        [src]="countryData.flags.svg"
+        [alt]="countryData.name.common"
+        width="300"
+        class="flag-image"
+      />
     </div>
+
+    <!-- Informações -->
+    <div class="detail-info country-detail">
+      <h2>{{ countryData | translateCountry: langService.language() }}</h2>
+
+      <p>
+        <strong>{{ ui().officialName }}:</strong>
+        {{ countryData | translateCountry: langService.language():'official' }}
+      </p>
+
+      <p>
+        <strong>{{ ui().capital }}:</strong>
+        {{ countryData.capital?.join(', ') || '—' }}
+      </p>
+
+      <p>
+        <strong>{{ ui().population }}:</strong>
+        {{ countryData.population | number }}
+      </p>
+
+      <p>
+        <strong>{{ ui().region }}:</strong>
+        {{ countryData.region | translateRegion: langService.language() }}
+      </p>
+
+      <p>
+        <strong>{{ ui().subregion }}:</strong>
+        {{ countryData.subregion }}
+      </p>
+
+      <p>
+        <strong>{{ ui().area }}:</strong>
+        {{ countryData.area | number: '1.0-0' }} km²
+      </p>
+
+      <!-- Idiomas -->
+      <p>
+        <strong>{{ ui().languages }}:</strong>
+        @if (countryData.languages; as languages) { @for (lang of languages | keyvalue; track
+        lang.key) {
+        <span>{{ lang.value }} </span>
+        } }
+      </p>
+
+      <!-- Moedas -->
+      <p>
+        <strong>{{ ui().currencies }}:</strong>
+        @if (countryData.currencies; as currencies) { @for (currency of currencies | keyvalue; track
+        currency.key) {
+        <span> {{ currency.value.name }} ({{ currency.value.symbol }}) </span>
+        } }
+      </p>
+
+      <!-- Fronteiras -->
+      <div class="borders-section">
+        <h3>{{ ui().borders }}</h3>
+
+        @if (countryData.borders?.length) {
+        <mat-chip-set>
+          @for (border of countryData.borders; track border) {
+          <button mat-raised-button (click)="goToBorder(border)" class="borders">
+            {{ border }}
+          </button>
+          }
+        </mat-chip-set>
+        } @else {
+        <p>{{ ui().noBorders }}</p>
+        }
+      </div>
+    </div>
+  </div>
 
   } @else {
 
-    @let countryData = country();
-    @if (countryData) {
+  <p>País não encontrado</p>
 
-      <div style="display:flex; gap:10px; align-items:flex-start; flex-wrap:wrap;">
-
-        <!-- Bandeira -->
-        <div class="country-detail">
-          <img 
-            [src]="countryData.flags.svg" 
-            [alt]="countryData.name.common" 
-            width="300" 
-            style="border-radius:8px;" 
-          />
-        </div>
-
-        <!-- Informações -->
-        <div style="max-width:600px;" class="country-detail">
-
-          <h2>{{ countryData | translateCountry : langService.language() }}</h2>
-
-          <p>
-            <strong>{{ ui().officialName }}:</strong> 
-            {{ countryData | translateCountry : langService.language() : 'official' }}
-          </p>
-
-          <p>
-            <strong>{{ ui().capital }}:</strong> 
-            {{ countryData.capital?.join(', ') || '—' }}
-          </p>
-
-          <p>
-            <strong>{{ ui().population }}:</strong> 
-            {{ countryData.population | number }}
-          </p>
-
-          <p>
-            <strong>{{ ui().region }}:</strong> 
-            {{ countryData.region | translateRegion : langService.language() }}
-          </p>
-
-          <p>
-            <strong>{{ ui().subregion }}:</strong> 
-            {{ countryData.subregion }}
-          </p>
-
-          <p>
-            <strong>{{ ui().area }}:</strong> 
-            {{ countryData.area | number:'1.0-0' }} km²
-          </p>
-
-          <!-- Idiomas -->
-          <p>
-            <strong>{{ ui().languages }}:</strong>
-            @if (countryData.languages; as languages) {
-              @for (lang of languages | keyvalue; track lang.key) {
-                <span>{{ lang.value }} </span>
-              }
-            }
-          </p>
-
-          <!-- Moedas -->
-          <p>
-            <strong>{{ ui().currencies }}:</strong>
-            @if (countryData.currencies; as currencies) {
-              @for (currency of currencies | keyvalue; track currency.key) {
-                <span>
-                  {{ currency.value.name }} ({{ currency.value.symbol }})
-                </span>
-              }
-            }
-          </p>
-
-          <!-- Fronteiras -->
-          <div style="margin-top:20px;">
-            <h3>{{ ui().borders }}</h3>
-          
-            @if (countryData.borders?.length) {
-              <mat-chip-set>
-                @for (border of countryData.borders; track border) {
-                  <button 
-                    mat-raised-button 
-                    (click)="goToBorder(border)" 
-                    class="borders">
-                    {{ border }}
-                  </button>
-                }
-              </mat-chip-set>
-            } @else {
-              <p>{{ ui().noBorders }}</p>
-            }
-          </div>
-
-        </div>
-
-      </div>
-
-    } @else {
-
-      <p>País não encontrado</p>
-
-    }
-
-  }
-
+  } }
 </div>

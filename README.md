@@ -1,4 +1,4 @@
-🌍 Countries Explorer
+# 🌍 Countries Explorer
 
 Aplicação web desenvolvida com Angular para exploração de dados de países utilizando a API pública REST Countries.
 
@@ -6,7 +6,7 @@ Projeto construído como desafio técnico, com foco em arquitetura escalável, b
 
 🚀 Live Demo
 
-🔗 https://bclouder-desafio-tecnico-countries.vercel.app/
+🔗 <https://bclouder-desafio-tecnico-countries.vercel.app/>
 
 📌 Principais Funcionalidades
 🔎 Busca de países por nome (com debounce e reatividade)
@@ -24,7 +24,7 @@ O projeto foi estruturado seguindo boas práticas modernas do Angular:
 📦 Arquitetura modular (Core / Shared / Features)
 🔁 Uso de RxJS para controle de fluxo e reatividade
 🧩 Separação clara de responsabilidades (Service Layer)
-🧱 Componentização reutilizável
+🧱 Componentes reutilizáveis
 🎯 Tipagem forte com TypeScript
 🎨 UI consistente com Angular Material
 🛠️ Tecnologias
@@ -38,11 +38,11 @@ REST Countries API
 
 Base URL:
 
-https://restcountries.com/v3.1
+<https://restcountries.com/v3.1>
 
 Endpoint principal:
 
-https://restcountries.com/v3.1/all
+<https://restcountries.com/v3.1/all>
 Dados consumidos:
 Nome
 Bandeira
@@ -52,8 +52,14 @@ Região
 Idiomas
 Moedas
 Países fronteiriços
+📚 Documentação para Iniciantes
+
+Se você está começando agora e quer entender cada parte do projeto, leia o guia completo:
+
+👉 **[GUIA_DO_PROJETO.md](./GUIA_DO_PROJETO.md)** — explicado com linguagem simples, sem jargões técnicos. Inclui fluxo de dados, glossário e passo a passo.
+
 ⚙️ Instalação
-git clone https://github.com/laurourbano/bclouder-desafio-tecnico-countries-explorer
+git clone <https://github.com/laurourbano/bclouder-desafio-tecnico-countries-explorer>
 cd bclouder-desafio-tecnico-countries-explorer
 npm install
 ▶️ Execução
@@ -61,7 +67,7 @@ ng serve -o
 
 Acesse:
 
-http://localhost:4200
+<http://localhost:4200>
 📦 Build de Produção
 ng build --configuration production
 
@@ -106,8 +112,8 @@ Uso consistente de tipagem forte
 
 Lauro Otávio Urbano
 
-LinkedIn: https://www.linkedin.com/in/laurourbano
-GitHub: https://github.com/laurourbano
+LinkedIn: <https://www.linkedin.com/in/laurourbano>
+GitHub: <https://github.com/laurourbano>
 WhatsApp: +55 (41) 99808-6077
 📄 Licença
 

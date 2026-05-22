@@ -1,19 +1,17 @@
 <div class="app-wrapper">
   <header>
     <mat-toolbar color="primary" class="header-toolbar">
-
-      <span style="display: flex; align-items: center; gap: 8px">
-        <img src="navegador.png" alt="">
-        <span class="app-title">{{title()}}</span>
+      <span class="toolbar-brand">
+        <img src="navegador.png" alt="" />
+        <span class="app-title">{{ title() }}</span>
       </span>
-      <span style="flex: 1 1 auto;"></span>
-      
+      <span class="toolbar-spacer"></span>
+
       <app-language-select></app-language-select>
-      
-      <button mat-icon-button (click)="themeService.toggleTheme()" style="margin-left: 8px;">
+
+      <button mat-icon-button (click)="themeService.toggleTheme()" class="theme-toggle">
         <mat-icon>{{ themeService.theme() === 'dark' ? 'light_mode' : 'dark_mode' }}</mat-icon>
       </button>
-
     </mat-toolbar>
   </header>
   <main>
@@ -21,5 +19,4 @@
       <router-outlet></router-outlet>
     </mat-card>
   </main>
-
 </div>
