@@ -7,7 +7,6 @@ import { Country } from '../../core/models/country.model';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { LanguageService } from '../../core/services/language-service';
 
-
 class ActivatedRouteStub {
   private paramMapSubject = new BehaviorSubject(convertToParamMap({ cca3: 'BRA' }));
   readonly paramMap = this.paramMapSubject.asObservable();
@@ -21,11 +20,11 @@ class RouterStub {
 describe('Detail', () => {
   let component: Detail;
   let fixture: ComponentFixture<Detail>;
-  let countryServiceSpy: any;
+  let countryServiceSpy: jasmine.SpyObj<CountryService>;
   let routerStub: RouterStub;
   let activatedRouteStub: ActivatedRouteStub;
 
-  const mockCountry: Partial<Country> = {
+  const mockCountry: Country = {
     name: { common: 'Brazil', official: 'Federative Republic of Brazil' },
     cca3: 'BRA',
     region: 'Americas',
@@ -35,15 +34,17 @@ describe('Detail', () => {
     flags: { png: 'url', svg: 'url' },
     borders: ['ARG', 'BOL'],
     languages: { por: 'Portuguese' },
-    currencies: { BRL: { name: 'Real', symbol: 'R$' } }
+    currencies: { BRL: { name: 'Real', symbol: 'R$' } },
+    area: 0,
+    translations: {},
+    searchableText: '',
   };
 
   beforeEach(async () => {
     activatedRouteStub = new ActivatedRouteStub();
     routerStub = new RouterStub();
-    countryServiceSpy = {
-      byCca3: jasmine.createSpy('byCca3').and.returnValue(of(mockCountry))
-    };
+    countryServiceSpy = jasmine.createSpyObj('CountryService', ['byCca3']);
+    countryServiceSpy.byCca3.and.returnValue(of(mockCountry));
 
     await TestBed.configureTestingModule({
       imports: [Detail, NoopAnimationsModule],
@@ -51,9 +52,8 @@ describe('Detail', () => {
         { provide: CountryService, useValue: countryServiceSpy },
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: Router, useValue: routerStub },
-        // Não usar provideRouter([]) aqui — cria router real que sobrescreve o mock
-        { provide: RouterModule, useValue: {} }
-      ]
+        { provide: RouterModule, useValue: {} },
+      ],
     }).compileComponents();
 
     const langService: LanguageService = TestBed.inject(LanguageService);
@@ -68,60 +68,53 @@ describe('Detail', () => {
     await fixture.whenStable();
     expect(component).toBeTruthy();
     expect(countryServiceSpy.byCca3).toHaveBeenCalledWith('BRA');
-    expect(component.country()).toEqual(mockCountry as Country);
-    expect(component.loading()).toBe(false);
+    expect(component['country']()).toEqual(mockCountry);
+    expect(component['loading']()).toBe(false);
   });
 
   it('should show loading state while fetching country', () => {
-    // Para testar o loading, precisamos de um observable que não emita imediatamente
-    const loadingSubject = new Subject<any>();
+    const loadingSubject = new Subject<Country>();
     countryServiceSpy.byCca3.and.returnValue(loadingSubject.asObservable());
-    
-    // Criar novo componente para garantir o estado inicial
+
     const loadingFixture = TestBed.createComponent(Detail);
     loadingFixture.detectChanges();
-    
-    expect(loadingFixture.componentInstance.loading()).toBe(true);
-    
+
+    expect(loadingFixture.componentInstance['loading']()).toBe(true);
+
     loadingSubject.next(mockCountry);
     loadingFixture.detectChanges();
-    
-    expect(loadingFixture.componentInstance.loading()).toBe(false);
-    expect(loadingFixture.componentInstance.country()).toEqual(mockCountry as Country);
+
+    expect(loadingFixture.componentInstance['loading']()).toBe(false);
+    expect(loadingFixture.componentInstance['country']()).toEqual(mockCountry);
   });
 
   it('should handle error when loading country', () => {
     countryServiceSpy.byCca3.and.returnValue(throwError(() => new Error('Not Found')));
-    
-    // Como o switchMap no ngOnInit já disparou no detectChanges, 
-    // precisamos resetar ou disparar uma mudança no paramMap
-    // Ou simplesmente criar um novo fixture
+
     const errorFixture = TestBed.createComponent(Detail);
     errorFixture.detectChanges();
-    
-    expect(errorFixture.componentInstance.error()).toBe('Não foi possível carregar os dados do país.');
-    expect(errorFixture.componentInstance.loading()).toBe(false);
+
+    expect(errorFixture.componentInstance['error']()).toBe('Could not load countries');
+    expect(errorFixture.componentInstance['loading']()).toBe(false);
   });
 
   it('should navigate to border country', () => {
-    component.goToBorder('ARG');
+    component['goToBorder']('ARG');
     expect(routerStub.navigate).toHaveBeenCalledWith(['/countries', 'ARG']);
   });
 
   it('should navigate back to home', () => {
-    component.goBack();
+    component['goBack']();
     expect(routerStub.navigate).toHaveBeenCalledWith(['/']);
   });
 
   it('should update UI translations when language changes', () => {
-    // Garantir que começamos em eng
     component['langService'].setLanguage('eng');
     fixture.detectChanges();
-    expect(component.ui().back).toBe('Back');
+    expect(component['ui']().back).toBe('Back');
 
     component['langService'].setLanguage('por');
     fixture.detectChanges();
-
-    expect(component.ui().back).toBe('Voltar');
+    expect(component['ui']().back).toBe('Voltar');
   });
 });

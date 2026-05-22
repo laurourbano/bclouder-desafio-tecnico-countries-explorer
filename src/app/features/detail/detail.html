@@ -1,12 +1,22 @@
 <div class="page-container">
   <div class="back-button-wrapper">
-    <button mat-stroked-button (click)="goBack()">← {{ ui().back }}</button>
+    <button mat-stroked-button (click)="goBack()" aria-label="Voltar para lista de países">
+      ← {{ ui().back }}
+    </button>
   </div>
 
   @if (loading()) {
 
   <div class="loading-container">
     <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
+
+  } @else if (error()) {
+
+  <div class="error-container">
+    <mat-icon color="warn">error_outline</mat-icon>
+    <p>{{ error() }}</p>
+    <button mat-stroked-button (click)="goBack()">{{ ui().back }}</button>
   </div>
 
   } @else { @let countryData = country(); @if (countryData) {
@@ -33,7 +43,7 @@
 
       <p>
         <strong>{{ ui().capital }}:</strong>
-        {{ countryData.capital?.join(', ') || '—' }}
+        {{ countryData.capital.join(', ') || '—' }}
       </p>
 
       <p>
@@ -78,10 +88,15 @@
       <div class="borders-section">
         <h3>{{ ui().borders }}</h3>
 
-        @if (countryData.borders?.length) {
+        @if (countryData.borders.length) {
         <mat-chip-set>
           @for (border of countryData.borders; track border) {
-          <button mat-raised-button (click)="goToBorder(border)" class="borders">
+          <button
+            mat-raised-button
+            (click)="goToBorder(border)"
+            class="borders"
+            [attr.aria-label]="'Navegar para ' + border"
+          >
             {{ border }}
           </button>
           }

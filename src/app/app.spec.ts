@@ -7,11 +7,11 @@ import { provideRouter } from '@angular/router';
 describe('App', () => {
   beforeEach(async () => {
     const languageServiceMock = {
-      language: () => 'eng'
+      language: () => 'eng',
     };
     const themeServiceMock = {
       theme: () => 'light',
-      toggleTheme: () => {}
+      toggleTheme: () => {},
     };
 
     await TestBed.configureTestingModule({
@@ -19,9 +19,8 @@ describe('App', () => {
       providers: [
         { provide: LanguageService, useValue: languageServiceMock },
         { provide: ThemeService, useValue: themeServiceMock },
-        provideRouter([])
-      ]
-
+        provideRouter([]),
+      ],
     }).compileComponents();
   });
 
@@ -42,12 +41,12 @@ describe('App', () => {
   it('should toggle theme when clicking the theme button', () => {
     const fixture = TestBed.createComponent(App);
     const app = fixture.componentInstance;
-    const themeSpy = spyOn(app.themeService, 'toggleTheme').and.callThrough();
-    
+    const themeSpy = spyOn(app['themeService'], 'toggleTheme').and.callThrough();
+
     fixture.detectChanges();
     const button = fixture.nativeElement.querySelector('button[mat-icon-button]');
     button.click();
-    
+
     expect(themeSpy).toHaveBeenCalled();
   });
 

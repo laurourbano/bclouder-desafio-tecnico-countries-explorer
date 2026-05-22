@@ -1,4 +1,12 @@
-import { Component, inject, signal, computed, DestroyRef, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  inject,
+  signal,
+  computed,
+  DestroyRef,
+  OnInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CountryService } from '../../core/services/country-service';
 import { MATERIAL_MODULES } from '../../shared/material/material.config';
@@ -7,46 +15,58 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { KeyValuePipe, DecimalPipe } from '@angular/common';
 import { LanguageService } from '../../core/services/language-service';
 import { Country } from '../../core/models/country.model';
-import { LANGUAGES } from '../../core/config/languages.config';
 import { UI_TRANSLATIONS } from '../../core/config/ui.translations.config';
 import { TranslateCountryPipe } from '../../shared/pipes/translate-country.pipe';
 import { TranslateRegionPipe } from '../../shared/pipes/translate-region.pipe';
+import { EMPTY } from 'rxjs';
 
 @Component({
   selector: 'app-detail',
   standalone: true,
-  imports: [RouterModule, MATERIAL_MODULES, KeyValuePipe, DecimalPipe, TranslateCountryPipe, TranslateRegionPipe],
+  imports: [
+    RouterModule,
+    MATERIAL_MODULES,
+    KeyValuePipe,
+    DecimalPipe,
+    TranslateCountryPipe,
+    TranslateRegionPipe,
+  ],
   templateUrl: './detail.html',
   styleUrl: './detail.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Detail implements OnInit {
-  private route = inject(ActivatedRoute);
-  private service = inject(CountryService);
-  private router = inject(Router);
-  private destroyRef = inject(DestroyRef);
-  protected langService = inject(LanguageService);
+  private readonly route = inject(ActivatedRoute);
+  private readonly service = inject(CountryService);
+  private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
 
-  country = signal<Country | null>(null);
-  loading = signal<boolean>(true);
-  error = signal<string | null>(null);
-  languages = LANGUAGES;
+  protected readonly langService = inject(LanguageService);
 
-  ui = computed(() => {
+  protected readonly country = signal<Country | null>(null);
+  protected readonly loading = signal(true);
+  protected readonly error = signal<string | null>(null);
+
+  protected readonly ui = computed(() => {
     const lang = this.langService.language();
     return UI_TRANSLATIONS[lang] ?? UI_TRANSLATIONS['eng'];
   });
 
-
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.paramMap
       .pipe(
         switchMap((params) => {
           const cca3 = params.get('cca3');
+
+          if (!cca3) {
+            this.error.set(this.ui().invalidCode);
+            this.loading.set(false);
+            return EMPTY;
+          }
+
           this.loading.set(true);
           this.error.set(null);
-          return this.service.byCca3(cca3!);
+          return this.service.byCca3(cca3);
         }),
         takeUntilDestroyed(this.destroyRef),
       )
@@ -55,19 +75,18 @@ export class Detail implements OnInit {
           this.country.set(country);
           this.loading.set(false);
         },
-        error: (err) => {
-          console.error('Erro ao buscar país:', err);
-          this.error.set('Não foi possível carregar os dados do país.');
+        error: () => {
+          this.error.set(this.ui().countriesError);
           this.loading.set(false);
         },
       });
   }
 
-  goToBorder(cca3: string) {
+  protected goToBorder(cca3: string): void {
     this.router.navigate(['/countries', cca3]);
   }
 
-  goBack() {
+  protected goBack(): void {
     this.router.navigate(['/']);
   }
 }

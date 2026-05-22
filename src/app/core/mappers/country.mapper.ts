@@ -1,8 +1,6 @@
 import { Country } from '../models/country.model';
 import { RestCountryApiResponse } from '../models/rest-countries.model';
-
-const normalize = (value: string) =>
-  value?.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '') || '';
+import { normalizeText } from '../utils/text.utils';
 
 export const mapCountry = (api: RestCountryApiResponse): Country => ({
   name: api.name,
@@ -16,12 +14,15 @@ export const mapCountry = (api: RestCountryApiResponse): Country => ({
   languages: api.languages ?? {},
   currencies: api.currencies ?? {},
   area: api.area ?? 0,
-  code: api.cca3,
   translations: api.translations ?? {},
   searchableText: [
-    normalize(api.name.common),
-    normalize(api.name.official),
-    normalize(api.capital?.[0] || ''),
-    ...(api.translations ? Object.values(api.translations).map(t => `${normalize(t.common)} ${normalize(t.official)}`) : [])
-  ].join(' | ')
+    normalizeText(api.name.common),
+    normalizeText(api.name.official),
+    normalizeText(api.capital?.[0] || ''),
+    ...(api.translations
+      ? Object.values(api.translations).map(
+          (t) => `${normalizeText(t.common)} ${normalizeText(t.official)}`,
+        )
+      : []),
+  ].join(' | '),
 });

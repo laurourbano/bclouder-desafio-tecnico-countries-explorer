@@ -1,4 +1,9 @@
-<button mat-button [matMenuTriggerFor]="langMenu" class="lang-button">
+<button
+  mat-button
+  [matMenuTriggerFor]="langMenu"
+  class="lang-button"
+  aria-label="Selecionar idioma"
+>
   <mat-icon>language</mat-icon>
   <span class="lang-label">{{ currentLangLabel() }}</span>
   <mat-icon iconPositionEnd>arrow_drop_down</mat-icon>
@@ -6,13 +11,18 @@
 
 <mat-menu #langMenu="matMenu">
   @for (language of languages; track language.code) {
-    <button mat-menu-item (click)="setLanguage(language.code)">
-      @if (langService.language() === language.code) {
-        <mat-icon>check</mat-icon>
-      } @else {
-        <mat-icon></mat-icon>
-      }
-      {{ language.label }}
-    </button>
+  <button
+    mat-menu-item
+    (click)="setLanguage(language.code)"
+    role="menuitemradio"
+    [attr.aria-checked]="langService.language() === language.code"
+  >
+    @if (langService.language() === language.code) {
+    <mat-icon>check</mat-icon>
+    } @else {
+    <span class="icon-placeholder"></span>
+    }
+    {{ language.label }}
+  </button>
   }
 </mat-menu>

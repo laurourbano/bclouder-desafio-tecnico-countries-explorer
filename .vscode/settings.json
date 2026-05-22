@@ -1,4 +1,6 @@
 {
+  "totalTypeScript.hideAllHints": true,
+  "totalTypeScript.hideBasicHints": true,
   "cSpell.words": [
     "Accueil",
     "acessores",
