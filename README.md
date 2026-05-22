@@ -73,7 +73,7 @@ ng build --configuration production
 
 Saída:
 
-dist/
+`dist/
 🏗️ Estrutura do Projeto
 src/
 │
@@ -82,7 +82,8 @@ src/
 │   ├── features/     # módulos de funcionalidades (home, detail)
 │   ├── shared/       # módulos compartilhados (Material, componentes)
 │
-└── environments/
+└── environments/`
+
 📱 Responsividade
 
 Desktop
