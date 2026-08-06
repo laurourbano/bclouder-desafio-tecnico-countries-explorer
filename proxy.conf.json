@@ -1,0 +1,14 @@
+{
+  "/restcountries": {
+    "target": "https://api.restcountries.com/countries/v5",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "info",
+    "pathRewrite": { "^/restcountries": "" },
+    "headers": {
+      // Put a local-only API key here if you must (do NOT commit).
+      // Example: "Authorization": "Bearer rc_live_..."
+      "Authorization": ""
+    }
+  }
+}
