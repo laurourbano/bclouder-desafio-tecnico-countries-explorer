@@ -1,4 +1,7 @@
 export const environment = {
     production: false,
-    apiUrl: 'https://restcountries.com/v3.1'
+    // New v5 base URL
+    apiUrl: 'https://api.restcountries.com/countries/v5',
+    // For local development set your API key here (do NOT commit it).
+    restCountriesApiKey: ''
 };

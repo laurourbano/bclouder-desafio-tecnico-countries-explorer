@@ -6,13 +6,15 @@ import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideToastr } from 'ngx-toastr';
 import { errorInterceptor } from './core/interceptors/error.interceptor';
+import { authInterceptor } from './core/interceptors/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimations(),
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
-    provideHttpClient(withInterceptors([errorInterceptor])),
+    // Ensure authInterceptor runs before errorInterceptor
+    provideHttpClient(withInterceptors([authInterceptor, errorInterceptor])),
     provideToastr({
       timeOut:3000,
       positionClass: 'toast-bottom-right',

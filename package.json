@@ -6,9 +6,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "node tools/generate-environment.js && ng build --configuration production",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "generate-env": "node tools/generate-environment.js"
   },
   "prettier": {
     "printWidth": 100,
