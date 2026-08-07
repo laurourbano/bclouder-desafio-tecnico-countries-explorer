@@ -8,6 +8,9 @@ module.exports = async (req, res) => {
     const suffix = originalUrl.replace(/^\/api\/restcountries/, '') || '';
     const target = API_BASE + suffix;
 
+    // basic request logging to help debug in Vercel logs
+    console.log(`[proxy] ${req.method} ${originalUrl} -> ${target}`);
+
     const headers = {};
     // copy incoming headers except host
     Object.keys(req.headers || {}).forEach((k) => {
@@ -17,6 +20,7 @@ module.exports = async (req, res) => {
 
     const key = process.env.REST_COUNTRIES_API_KEY || '';
     if (key) headers['Authorization'] = `Bearer ${key}`;
+    else console.log('[proxy] REST_COUNTRIES_API_KEY not set in environment');
 
     const fetchOptions = {
       method: req.method,
